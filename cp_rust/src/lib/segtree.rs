@@ -1,147 +1,39 @@
-use crate::internal_bit::ceil_pow2;
-use crate::internal_type_traits::{BoundedAbove, BoundedBelow, One, Zero};
-use std::cmp::{max, min};
-use std::convert::Infallible;
+use super::internal_bit::ceil_pow2;
+use super::monoid::Monoid;
 use std::iter::FromIterator;
-use std::marker::PhantomData;
-use std::ops::{Add, BitAnd, BitOr, BitXor, Bound, Mul, Not, RangeBounds};
+use std::ops::{Bound, RangeBounds};
 
-// TODO Should I split monoid-related traits to another module?
-pub trait Monoid {
-    type S: Clone;
-    fn identity() -> Self::S;
-    fn binary_operation(a: &Self::S, b: &Self::S) -> Self::S;
-}
-
-pub struct Max<S>(Infallible, PhantomData<fn() -> S>);
-impl<S> Monoid for Max<S>
-where
-    S: Copy + Ord + BoundedBelow,
-{
-    type S = S;
-    fn identity() -> Self::S {
-        S::min_value()
-    }
-    fn binary_operation(a: &Self::S, b: &Self::S) -> Self::S {
-        max(*a, *b)
-    }
-}
-
-pub struct Min<S>(Infallible, PhantomData<fn() -> S>);
-impl<S> Monoid for Min<S>
-where
-    S: Copy + Ord + BoundedAbove,
-{
-    type S = S;
-    fn identity() -> Self::S {
-        S::max_value()
-    }
-    fn binary_operation(a: &Self::S, b: &Self::S) -> Self::S {
-        min(*a, *b)
-    }
-}
-
-pub struct Additive<S>(Infallible, PhantomData<fn() -> S>);
-impl<S> Monoid for Additive<S>
-where
-    S: Copy + Add<Output = S> + Zero,
-{
-    type S = S;
-    fn identity() -> Self::S {
-        S::zero()
-    }
-    fn binary_operation(a: &Self::S, b: &Self::S) -> Self::S {
-        *a + *b
-    }
-}
-
-pub struct Multiplicative<S>(Infallible, PhantomData<fn() -> S>);
-impl<S> Monoid for Multiplicative<S>
-where
-    S: Copy + Mul<Output = S> + One,
-{
-    type S = S;
-    fn identity() -> Self::S {
-        S::one()
-    }
-    fn binary_operation(a: &Self::S, b: &Self::S) -> Self::S {
-        *a * *b
-    }
-}
-
-pub struct BitwiseOr<S>(Infallible, PhantomData<fn() -> S>);
-impl<S> Monoid for BitwiseOr<S>
-where
-    S: Copy + BitOr<Output = S> + Zero,
-{
-    type S = S;
-    fn identity() -> Self::S {
-        S::zero()
-    }
-    fn binary_operation(a: &Self::S, b: &Self::S) -> Self::S {
-        *a | *b
-    }
-}
-
-pub struct BitwiseAnd<S>(Infallible, PhantomData<fn() -> S>);
-impl<S> Monoid for BitwiseAnd<S>
-where
-    S: Copy + BitAnd<Output = S> + Not<Output = S> + Zero,
-{
-    type S = S;
-    fn identity() -> Self::S {
-        !S::zero()
-    }
-    fn binary_operation(a: &Self::S, b: &Self::S) -> Self::S {
-        *a & *b
-    }
-}
-
-pub struct BitwiseXor<S>(Infallible, PhantomData<fn() -> S>);
-impl<S> Monoid for BitwiseXor<S>
-where
-    S: Copy + BitXor<Output = S> + Zero,
-{
-    type S = S;
-    fn identity() -> Self::S {
-        S::zero()
-    }
-    fn binary_operation(a: &Self::S, b: &Self::S) -> Self::S {
-        *a ^ *b
-    }
-}
-
-impl<M: Monoid> Default for Segtree<M> {
+impl<M: Monoid> Default for SegTree<M> {
     fn default() -> Self {
-        Segtree::new(0)
+        SegTree::new(0)
     }
 }
-impl<M: Monoid> Segtree<M> {
-    pub fn new(n: usize) -> Segtree<M> {
+impl<M: Monoid> SegTree<M> {
+    pub fn new(n: usize) -> SegTree<M> {
         vec![M::identity(); n].into()
     }
 }
-impl<M: Monoid> From<Vec<M::S>> for Segtree<M> {
+impl<M: Monoid> From<Vec<M::S>> for SegTree<M> {
     fn from(v: Vec<M::S>) -> Self {
         let n = v.len();
         let log = ceil_pow2(n as u32) as usize;
         let size = 1 << log;
         let mut d = vec![M::identity(); 2 * size];
         d[size..][..n].clone_from_slice(&v);
-        let mut ret = Segtree { n, size, log, d };
+        let mut ret = SegTree { n, size, log, d };
         for i in (1..size).rev() {
             ret.update(i);
         }
         ret
     }
 }
-impl<M: Monoid> FromIterator<M::S> for Segtree<M> {
-    fn from_iter<T: IntoIterator<Item = M::S>>(iter: T) -> Self {
+impl<M: Monoid> FromIterator<M::S> for SegTree<M> {
+    fn from_iter<T: IntoIterator<Item=M::S>>(iter: T) -> Self {
         let v = iter.into_iter().collect::<Vec<_>>();
         v.into()
     }
 }
-impl<M: Monoid> Segtree<M> {
+impl<M: Monoid> SegTree<M> {
     pub fn set(&mut self, mut p: usize, x: M::S) {
         assert!(p < self.n);
         p += self.size;
@@ -289,7 +181,7 @@ impl<M: Monoid> Segtree<M> {
 }
 
 #[derive(Clone)]
-pub struct Segtree<M>
+pub struct SegTree<M>
 where
     M: Monoid,
 {

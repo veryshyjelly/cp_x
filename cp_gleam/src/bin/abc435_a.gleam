@@ -3,10 +3,13 @@
 
 import lib/cpio.{type IOResult, Int, ParseInt, parse, to_string}
 
-// @code begin
+// @head begin
 import gleam/io
 import gleam/yielder
 import stdin
+// @head end
+
+// @code begin
 
 pub fn solve(lines: List(String)) -> IOResult {
   let assert #(Int(n), _lines) = parse(lines, ParseInt)

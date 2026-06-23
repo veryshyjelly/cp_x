@@ -8,7 +8,7 @@ import Data.Map.Strict qualified as Map
 
 main :: IO ()
 main = do
-  s <- getLine -- fast input
+  s <- getLine
   let freq = Map.fromListWith (+) $ (,1) <$> s
       (evens, odds) = partition (even . snd) $ Map.toList freq
   if length odds > 1

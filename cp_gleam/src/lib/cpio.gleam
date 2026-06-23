@@ -1,9 +1,12 @@
-import gleam/float as float_
-import gleam/int as int_
-import gleam/list as list_
-import gleam/result as result_
-import gleam/string as string_
+// @head begin
+import gleam/float
+import gleam/int
+import gleam/list
+import gleam/result
+import gleam/string
+// @head end
 
+// @code begin
 pub type Parse {
   ParseInt
   ParseFloat
@@ -29,54 +32,54 @@ pub type IOResult {
 
 pub fn to_string(val: IOResult) -> String {
   case val {
-    Int(i) -> i |> int_.to_string
-    Float(f) -> f |> float_.to_string
+    Int(i) -> i |> int.to_string
+    Float(f) -> f |> float.to_string
     String(s) -> s
-    WordsInt(w) -> w |> list_.map(int_.to_string) |> string_.join(" ")
-    WordsFloat(w) -> w |> list_.map(float_.to_string) |> string_.join(" ")
-    WordsString(w) -> w |> string_.join(" ")
-    LinesInt(l) -> l |> list_.map(int_.to_string) |> string_.join("\n")
-    LinesFloat(l) -> l |> list_.map(float_.to_string) |> string_.join("\n")
-    LinesString(l) -> l |> string_.join(" ")
+    WordsInt(w) -> w |> list.map(int.to_string) |> string.join(" ")
+    WordsFloat(w) -> w |> list.map(float.to_string) |> string.join(" ")
+    WordsString(w) -> w |> string.join(" ")
+    LinesInt(l) -> l |> list.map(int.to_string) |> string.join("\n")
+    LinesFloat(l) -> l |> list.map(float.to_string) |> string.join("\n")
+    LinesString(l) -> l |> string.join(" ")
     MatrixInt(m) ->
       m
-      |> list_.map(fn(w) { w |> list_.map(int_.to_string) |> string_.join(" ") })
-      |> string_.join("\n")
+      |> list.map(fn(w) { w |> list.map(int.to_string) |> string.join(" ") })
+      |> string.join("\n")
     MatrixFloat(m) ->
       m
-      |> list_.map(fn(w) {
-        w |> list_.map(float_.to_string) |> string_.join(" ")
+      |> list.map(fn(w) {
+        w |> list.map(float.to_string) |> string.join(" ")
       })
-      |> string_.join("\n")
+      |> string.join("\n")
     MatrixString(m) ->
       m
-      |> list_.map(fn(w) { w |> string_.join(" ") })
-      |> string_.join("\n")
+      |> list.map(fn(w) { w |> string.join(" ") })
+      |> string.join("\n")
   }
 }
 
 pub fn parse(lines: List(String), method: Parse) -> #(IOResult, List(String)) {
-  let #(x, rest) = lines |> list_.split(1)
-  let assert Ok(x) = list_.first(x)
+  let #(x, rest) = lines |> list.split(1)
+  let assert Ok(x) = list.first(x)
   let assert Ok(res) = case method {
     ParseInt -> {
-      use y <- result_.try(x |> string_.trim |> int_.parse)
+      use y <- result.try(x |> string.trim |> int.parse)
       Ok(#(Int(y), rest))
     }
     ParseFloat -> {
-      use y <- result_.try(x |> string_.trim |> float_.parse)
+      use y <- result.try(x |> string.trim |> float.parse)
       Ok(#(Float(y), rest))
     }
     ParseString -> {
       Ok(#(String(x), rest))
     }
     ParseWords(method) -> {
-      use y <- result_.try(x |> parse_words(method))
+      use y <- result.try(x |> parse_words(method))
       Ok(#(y, rest))
     }
     ParseLines(count, method) -> {
-      let #(lines, rest) = lines |> list_.split(count)
-      use y <- result_.try(lines |> parse_lines(method))
+      let #(lines, rest) = lines |> list.split(count)
+      use y <- result.try(lines |> parse_lines(method))
       Ok(#(y, rest))
     }
   }
@@ -84,14 +87,14 @@ pub fn parse(lines: List(String), method: Parse) -> #(IOResult, List(String)) {
 }
 
 fn parse_words(line: String, method: Parse) -> Result(IOResult, Nil) {
-  let lst = line |> string_.trim |> string_.split(" ")
+  let lst = line |> string.trim |> string.split(" ")
   case method {
     ParseInt -> {
-      use y <- result_.try(lst |> list_.try_map(int_.parse))
+      use y <- result.try(lst |> list.try_map(int.parse))
       Ok(WordsInt(y))
     }
     ParseFloat -> {
-      use y <- result_.try(lst |> list_.try_map(float_.parse))
+      use y <- result.try(lst |> list.try_map(float.parse))
       Ok(WordsFloat(y))
     }
     ParseString -> {
@@ -104,11 +107,11 @@ fn parse_words(line: String, method: Parse) -> Result(IOResult, Nil) {
 fn parse_lines(lines: List(String), method: Parse) -> Result(IOResult, Nil) {
   case method {
     ParseInt -> {
-      use y <- result_.try(lines |> list_.try_map(int_.parse))
+      use y <- result.try(lines |> list.try_map(int.parse))
       Ok(LinesInt(y))
     }
     ParseFloat -> {
-      use y <- result_.try(lines |> list_.try_map(float_.parse))
+      use y <- result.try(lines |> list.try_map(float.parse))
       Ok(LinesFloat(y))
     }
     ParseString -> {
@@ -117,22 +120,22 @@ fn parse_lines(lines: List(String), method: Parse) -> Result(IOResult, Nil) {
     ParseWords(method) -> {
       case method {
         ParseInt -> {
-          use y <- result_.try(
+          use y <- result.try(
             lines
-            |> list_.try_map(fn(line) {
-              let lst = line |> string_.trim |> string_.split(" ")
-              use y <- result_.try(lst |> list_.try_map(int_.parse))
+            |> list.try_map(fn(line) {
+              let lst = line |> string.trim |> string.split(" ")
+              use y <- result.try(lst |> list.try_map(int.parse))
               Ok(y)
             }),
           )
           Ok(MatrixInt(y))
         }
         ParseFloat -> {
-          use y <- result_.try(
+          use y <- result.try(
             lines
-            |> list_.try_map(fn(line) {
-              let lst = line |> string_.trim |> string_.split(" ")
-              use y <- result_.try(lst |> list_.try_map(float_.parse))
+            |> list.try_map(fn(line) {
+              let lst = line |> string.trim |> string.split(" ")
+              use y <- result.try(lst |> list.try_map(float.parse))
               Ok(y)
             }),
           )
@@ -141,8 +144,8 @@ fn parse_lines(lines: List(String), method: Parse) -> Result(IOResult, Nil) {
         ParseString -> {
           let y =
             lines
-            |> list_.map(fn(line) {
-              let lst = line |> string_.trim |> string_.split(" ")
+            |> list.map(fn(line) {
+              let lst = line |> string.trim |> string.split(" ")
               lst
             })
           Ok(MatrixString(y))
@@ -153,3 +156,4 @@ fn parse_lines(lines: List(String), method: Parse) -> Result(IOResult, Nil) {
     _ -> Error(Nil)
   }
 }
+// @code end

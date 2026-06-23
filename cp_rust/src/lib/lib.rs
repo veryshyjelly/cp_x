@@ -46,3 +46,4 @@ pub mod superslice;
 pub mod topological_sort;
 pub mod twosat;
 pub mod yen;
+pub mod monoid;

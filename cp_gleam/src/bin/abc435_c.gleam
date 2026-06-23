@@ -4,32 +4,34 @@ import lib/cpio.{
   type IOResult, Int, ParseInt, ParseWords, WordsInt, parse, to_string,
 }
 
-// @code begin
+// @head begin
 import gleam/int
 import gleam/io
-import gleam/list
-import gleam/result
 import gleam/yielder
 import stdin
+
+// @head end
+
+// @code begin
+// Using try_folds causes to pattern match on each itertion
+// using if else is much lighter than that
+fn go(xs: List(Int), acc: Int, i: Int, n: Int) -> Int {
+  case xs {
+    [] -> int.min(acc + 1, n)
+
+    [ai, ..rest] ->
+      case acc < i {
+        True -> int.min(acc + 1, n)
+        False -> go(rest, int.max(acc, i + ai - 1), i + 1, n)
+      }
+  }
+}
 
 pub fn solve(lines: List(String)) -> IOResult {
   let assert #(Int(n), lines) = parse(lines, ParseInt)
   let assert #(WordsInt(a), _lines) = parse(lines, ParseWords(ParseInt))
 
-  let res =
-    a
-    |> list.try_fold(#(0, 0), fn(aci, ai) {
-      let #(acc, i) = aci
-      case acc < i {
-        True -> Error(acc + 1)
-        False -> {
-          Ok(#(int.max(acc, i + ai - 1), i + 1))
-        }
-      }
-    })
-    |> result.map(fn(index) { index.0 + 1 })
-    |> result.unwrap_both
-    |> int.min(n)
+  let res = go(a, 0, 0, n)
 
   Int(res)
 }

@@ -1,9 +1,10 @@
 author = "Ayush Biswas"
 
-editor = "code"
+editor = "rustrover"
+editor_arguments = []
 
 [code]
-filename = ''' {{#if (regex_is_match pattern="codeforces.com" on=url)}} {{#with (regex_captures
+filename = '''{{#if (regex_is_match pattern="codeforces.com" on=url)}} {{#with (regex_captures
     pattern="(?:problemset/problem|contest)/(\\d+)(?:/problem)?/([A-Za-z0-9]+)"
     on=url) as |url_parts|}} {{#with (regex_captures
       pattern="^[A-Za-z0-9]+\\.\\s*(.+)$"
@@ -35,6 +36,13 @@ filename = ''' {{#if (regex_is_match pattern="codeforces.com" on=url)}} {{#with 
 ./src/bin/aoj-{{url_parts._1}}-{{to_kebab_case ../title}}.rs
 {{/with}}
 {{/if}}
+{{#if (regex_is_match pattern="open.kattis.com" on=url)}}
+{{#with (regex_captures
+  pattern="problems/([^/?]+)/?"
+  on=url) as |url_parts|}}
+./src/bin/{{url_parts._1}}.rs
+{{/with}}
+{{/if}}
 '''
 template = "./src/main.rs"
 modifier = ''' {{!-- Triple braces to prevent html escaping --}}
@@ -42,9 +50,11 @@ modifier = ''' {{!-- Triple braces to prevent html escaping --}}
 {{{code}}}
 {{!-- Iterate over each library is lib_files --}}
 {{#each lib_files}}
+
 mod {{{this.0}}} {
     {{{this.1}}}
 }
+
 {{/each}}
 '''
 lib_check_regex = "use\\s*(super::)?{{name}}(::|;)"

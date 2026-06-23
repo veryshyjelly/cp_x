@@ -1,10 +1,13 @@
 [package]
-name = "cp_rust"
-version = "0.1.0"
-edition = "2021"
-
-[lib]
-name = "cp_lib"
-path = "./src/lib/lib.rs"
+edition = '2021'
+name = 'cp_rust'
+version = '0.1.0'
 
 [dependencies]
+anyhow = '1.0.102'
+leetgo-rs = '0.2.2'
+
+[lib]
+name = 'cp_lib'
+path = './src/lib/lib.rs'
+
