@@ -1,5 +1,5 @@
-(* Created by Ayush Biswas at 2026/06/23 16:05 *)
-(* https://atcoder.jp/contests/abc127/tasks/abc127_a *)
+(* Created by Ayush Biswas at 2026/06/23 16:05
+https://atcoder.jp/contests/abc127/tasks/abc127_a *)
 open Core
 
 let sol a b =

@@ -47,17 +47,16 @@ filename = '''{{#if (regex_is_match pattern="codeforces.com" on=url)}} {{#with (
 template = "./src/main.ml"
 modifier = ''' {{!-- Triple braces to prevent html escaping --}}
 {{!-- Iterate over each library is lib_files --}}
-{{#each lib_files}}
-
 module Lib = struct
+{{#each lib_files}}
 
 module {{to_pascal_case this.0}} = struct
     {{{this.1}}}
 end
 
+{{/each}}
 end
 
-{{/each}}
 {{!-- Base code block --}}
 {{{code}}}
 '''
@@ -65,6 +64,8 @@ lib_check_regex = "open Lib"
 
 [include]
 dsu = "./src/lib/dsu.ml"
+mod = "./src/lib/mod.ml"
+heap = "./src/lib/heap.ml"
 
 [toggle]
 create_file = true

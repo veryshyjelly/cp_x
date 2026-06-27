@@ -1,5 +1,5 @@
-(* Created by Ayush Biswas at 2026/06/23 16:53 *)
-(* https://atcoder.jp/contests/abc127/tasks/abc127_c *)
+(* Created by Ayush Biswas at 2026/06/23 16:53
+https://atcoder.jp/contests/abc127/tasks/abc127_c *)
 open Core
 
 let intersection (a1, b1) = function

@@ -1,5 +1,5 @@
-(* Created by Ayush Biswas at 2026/06/23 14:05 *)
-(* https://atcoder.jp/contests/abc126/tasks/abc126_e *)
+(* Created by Ayush Biswas at 2026/06/23 14:05
+https://atcoder.jp/contests/abc126/tasks/abc126_e *)
 open Core
 open Lib
 

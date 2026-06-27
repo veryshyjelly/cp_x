@@ -1,5 +1,5 @@
-(* Created by Ayush Biswas at 2026/06/23 11:51 *)
-(* https://atcoder.jp/contests/abc126/tasks/abc126_b *)
+(* Created by Ayush Biswas at 2026/06/23 11:51
+https://atcoder.jp/contests/abc126/tasks/abc126_b *)
 open Core
 
 let valid_month m = m >= 1 && m <= 12

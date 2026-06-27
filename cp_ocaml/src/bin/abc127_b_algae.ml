@@ -1,5 +1,5 @@
-(* Created by Ayush Biswas at 2026/06/23 16:09 *)
-(* https://atcoder.jp/contests/abc127/tasks/abc127_b *)
+(* Created by Ayush Biswas at 2026/06/23 16:09
+https://atcoder.jp/contests/abc127/tasks/abc127_b *)
 open Core
 
 let sol r d x100 =

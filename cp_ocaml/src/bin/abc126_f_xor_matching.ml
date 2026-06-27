@@ -1,5 +1,5 @@
-(* Created by Ayush Biswas at 2026/06/23 15:23 *)
-(* https://atcoder.jp/contests/abc126/tasks/abc126_f *)
+(* Created by Ayush Biswas at 2026/06/23 15:23
+https://atcoder.jp/contests/abc126/tasks/abc126_f *)
 open Core
 
 let create_list m k =

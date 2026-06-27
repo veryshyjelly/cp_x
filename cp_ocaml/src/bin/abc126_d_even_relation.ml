@@ -1,5 +1,5 @@
-(* Created by Ayush Biswas at 2026/06/23 13:22 *)
-(* https://atcoder.jp/contests/abc126/tasks/abc126_d *)
+(* Created by Ayush Biswas at 2026/06/23 13:22
+https://atcoder.jp/contests/abc126/tasks/abc126_d *)
 open Core
 
 let rec dfs ~graph ~visited ~colors ~node ~color =

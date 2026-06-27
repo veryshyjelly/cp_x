@@ -1,5 +1,5 @@
-(* Created by Ayush Biswas at 2026/06/23 21:13 *)
-(* https://atcoder.jp/contests/abc127/tasks/abc127_d *)
+(* Created by Ayush Biswas at 2026/06/23 21:13
+https://atcoder.jp/contests/abc127/tasks/abc127_d *)
 open Core
 
 let sol n m =
