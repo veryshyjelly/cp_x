@@ -1,150 +1,92 @@
-# Competitive Programming Solutions
+# 🏆 Competitive Programming Monorepo
 
-This repository is a collection of competitive programming solutions in various languages. Each language has its own dedicated directory, containing solutions to problems from platforms like Codeforces, AtCoder, Aizu Online Judge (AOJ), and CSES.
+A massive, multi-language repository of competitive programming solutions. This project serves as a sandbox for learning new languages, practicing algorithmic problem-solving, and testing workflows across different ecosystems.
 
-## Languages
-
-This repository includes solutions in the following languages:
-
-- [ARM64 Assembly](#competitive-programming-in-arm64-assembly-macos)
-- [Gleam](#cp_gleam)
-- [Lean](#cp_lean)
-- [Python](#cp_python)
-- [Rust](#competitive-programming-solutions-in-rust)
-
-## Directory Structure
-
-The repository is organized by language, with each language having its own subdirectory:
-
-```
-.
-├── cp_arm/
-├── cp_gleam/
-├── cp_lean/
-├── cp_python/
-└── cp_rust/
-```
-
-Each language-specific directory contains the solutions, helper scripts, and its own README with more detailed information.
+> **Note:** This repository is designed to be used exclusively with **[cocom](https://github.com/veryshyjelly/cocom)**, a custom-built Go TUI companion tool. `cocom` completely abstracts away the build systems, handling everything from boilerplate generation and dependency linking to sandboxed compilation and execution.
 
 ---
 
-## Competitive Programming in ARM64 Assembly (macOS)
+## ⚡ The `cocom` Workflow
 
-This directory contains solutions to competitive programming problems in ARM64 assembly language, intended to run on macOS systems with Apple Silicon.
+You do not need to manually run `cargo`, `dune`, `lake`, or `clang`. `cocom` reads the `cocom.yml` configuration in each language directory and handles the entire lifecycle of a problem.
 
-### Repository Structure
-
--   `src/`: Contains all assembly solutions.
--   `main.s`: Template/main entry point for assembly programs.
--   `fetch_test_cases.py`: Script to fetch AOJ test cases.
--   `config.toml`: Configuration for naming, templates, and workflow.
-
-### Getting Started
-
-1.  **Requirements:**
-    -   macOS with ARM64 (Apple Silicon)
-    -   `clang` for assembling and linking
-    -   Python 3, `requests`, and `tqdm`
-
-2.  **Building and Running:**
-    ```sh
-    clang -o a.out src/<problem-file>.s main.s
-    ./a.out
-    ```
-
-For more details, see the [ARM assembly README](./cp_arm/README.md).
+### How to use this repo:
+1. Install and start the `cocom` TUI inside any language directory (e.g., `cd cp_rust && cocom`).
+2. Open your browser and navigate to a problem on Codeforces, AtCoder, CSES, etc.
+3. Click the **Competitive Companion** browser extension.
+4. `cocom` (listening on `127.0.0.1:27121`) will automatically:
+   - Parse the problem URL and generate the correct filename.
+   - Inject boilerplate code using language-specific templates.
+   - Open your preferred external editor.
+   - Fetch all sample test cases.
+5. Write your solution. When you save (or press `r` in the TUI), `cocom` will automatically compile your code in an isolated sandbox, link your custom libraries, run the test cases, and display the Time/Memory metrics and AC/WA status right in the terminal.
 
 ---
 
-## cp_gleam
+## 📂 Supported Ecosystems
 
-A collection of competitive programming solutions and utilities written in [Gleam](https://gleam.run/).
+The repository is divided into language-specific directories. Each contains its own standard library, build configuration, and `cocom.yml` rules.
 
-### Project Structure
-
--   `src/bin/`: Contains standalone solution files for specific problems.
--   `src/lib/`: Shared helper libraries, such as `cpio` for streamlined Input/Output.
-
-### Usage
-
-To run a specific problem solution:
-
-```sh
-gleam run -m bin/<problem_name>
-```
-
-For more details, see the [Gleam README](./cp_gleam/README.md).
+| Language | Directory | Internal Library / IO |
+| :--- | :--- | :--- |
+| 🦀 **Rust** | `cp_rust/` | `src/lib/` (Algorithms, Data Structures, `cpio`) |
+| 🐍 **Python** | `cp_python/` | `cpio/` (Fast I/O parsing) |
+| 🐫 **OCaml** | `cp_ocaml/` | `src/lib/` (Dune managed) |
+| 📐 **Lean 4** | `cp_lean/` | `Src/` (`Cpio.lean`, `Dsu.lean`) |
+| ✨ **Gleam** | `cp_gleam/` | `src/lib/` (`cpio`, `memo`) |
+| 🧮 **C++** | `cp_cpp/` | `src/lib/` (AC-Library based) |
+| 🦦 **Haskell** | `cp_haskell/`| `Main.hs` |
+| ⚙️ **ARM64 Asm**| `cp_arm/` | `main.s` (Apple Silicon) |
+| 🐉 **LLVM IR** | `cp_llvm/` | `lib/` |
 
 ---
 
-## cp_lean
+## 🧠 Anatomy of a Language Folder
 
-Competitive programming solutions in Lean 4, with a small IO helper layer for ergonomic parsing.
+Every `cp_*` directory is structured to be consumed by `cocom`'s internal engine:
 
-### Requirements
+### 1. `cocom.yml` (The Brain)
+This file tells `cocom` how to handle the language. It defines:
+- **Filename Rules:** Regex patterns to map URLs (e.g., `codeforces.com/contest/...`) to local filenames (e.g., `1999-a-a-b-again.rs`).
+- **Compiler Args:** The exact commands `cocom` needs to build and run the sandboxed binary.
+- **Editor:** The shell command to open your IDE (e.g., `nvim`, `code`, `zed`).
 
--   Lean 4 and Lake (via `elan`)
--   VS Code + Lean 4 extension (recommended)
+### 2. The Linker (`lib/` or `src/lib/`)
+`cocom` features a built-in dependency linker. If your solution includes a library file, `cocom` will:
+1. Scan the library directory.
+2. Topologically sort dependencies to prevent circular imports.
+3. Extract code blocks marked with `@code begin` / `@code end`.
+4. Extract headers marked with `@head begin` / `@head end`.
+5. Merge and deduplicate them into your final submission file automatically.
 
-### Run
-
-Use `lake env lean --run` to execute a file with a `main`:
-
-```sh
-lake env lean --run Src/Bin/<ProblemName>.lean < input.txt
-```
-
-For more details, see the [Lean README](./cp_lean/README.md).
+### 3. Templates
+Boilerplate generation is handled via Go `text/template` modifiers defined in the YAML, allowing you to inject the Author, Date, Problem URL, and linked library code directly into your new file.
 
 ---
 
-## cp_python
+## 🧪 Bulk Test Case Fetching
 
-This directory contains competitive programming solutions written in Python.
+While `cocom` handles test case parsing from the browser on the fly, several directories include standalone Python scripts to bulk-download entire problem sets (like the CSES problem set or AOJ) for offline practice.
 
-### Project Structure
-
--   `src/`: Contains the solution files.
--   `cpio/`: A library for input/output handling.
--   `fetch_test_cases_*.py`: Scripts to download sample test cases.
-
-### Usage
-
-To run a solution:
-
-```sh
-python3 src/<problem_file>.py
+Look for scripts named `fetch_test_cases_*.py` in the root of the respective language directories:
+```bash
+python3 fetch_test_cases_cses.py
+python3 fetch_test_cases_aizu.py
 ```
 
 ---
 
-## Competitive Programming Solutions in Rust
+## 🤝 Contributing
 
-This repository contains solutions to various competitive programming problems, implemented in Rust.
-
-### Project Structure
-
--   `src/bin/`: Each file is a standalone executable solution for a specific problem.
--   `src/lib/`: A support library (`cp_lib`) containing common algorithms and data structures.
--   `fetch_test_cases_*.py`: Python scripts to automatically download sample test cases.
-
-### Usage
-
-You can run any solution using its filename (without the `.rs` extension) as the binary name with Cargo.
-
-```sh
-cargo run --bin <binary-name>
-```
-
-For more details, see the [Rust README](./cp_rust/README.md).
+Contributions, optimizations, and new language additions are welcome! 
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/new-language`).
+3. Add your `cocom.yml`, templates, and library files.
+4. Ensure the workflow functions correctly within the `cocom` TUI.
+5. Open a Pull Request.
 
 ---
 
-## Contributing
-
-Contributions are welcome! If you have a solution to a problem in a new or existing language, feel free to open a pull request.
-
-## License
+## 📜 License
 
 This repository is open source and available under the [MIT License](LICENSE).
