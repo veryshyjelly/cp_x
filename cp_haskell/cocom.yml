@@ -58,7 +58,6 @@ compiler:
   name: Haskell
   source: main.hs
   compile: ghc # empty if no compilation to be performed
-  # main.extension automatically detected as solution file
   args:
     - main.hs
   run: ./main

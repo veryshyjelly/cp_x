@@ -1,0 +1,63 @@
+version: 1.0
+
+author: Ayush Biswas
+
+editor: "code {{ .Filename }}"
+
+# How to generate the destination filename.
+filename:
+  rules:
+    - site: codeforces.com
+      regex: "(?:problemset/problem|contest)/(\\d+)(?:/problem)?/([A-Za-z0-9]+)"
+      template: './Src/Bin/{{ index .Captures 1 | toPascalCase }}_{{ index .Captures 2 | toPascalCase }}.lean'
+
+    - site: atcoder.jp
+      regex: "contests/([^/]+)/tasks/([^_]+)_([a-z]+)"
+      template: './Src/Bin/{{ index .Captures 2 | toPascalCase }}{{ index .Captures 3 | toPascalCase }}.lean'
+
+    - site: cses.fi
+      regex: "problemset/task/(\\d+)/?$"
+      template: './src/bin/cses_{{ index .Captures 1 | toPascalCase }}.lean'
+
+    - site: open.kattis.com
+      regex: "problems/([^/?]+)/?"
+      template: "./src/bin/{{ index .Captures 1 | toPascalCase }}.lean"
+
+# Base source template.
+template:
+  source: ./Main.lean
+  modifier: |
+    -- Created by {{ .Author }} at {{ .Time }} 
+    -- {{ .Url }} 
+    {{ .Code }}
+
+# Optional code post-processing.
+code:
+  modifier: |
+    {{ .Header }}
+    
+    {{ range .LibFiles }}
+    -- {{ .Name }} start --
+      {{ .Content }}
+    -- {{ .Name }} end --
+    {{end}}
+
+    {{ .Code }}
+
+# Library injection.
+lib:
+  regex: "import\\s*Src.{{.Name}}"
+  include:
+    _: "./Src/"
+
+# Compilation.
+compiler:
+  name: Lean
+  source: Main.lean
+  compile: leanbuild # empty if no compilation to be performed
+  args:
+  run: ./main
+
+# Behaviour
+create_file: true
+run_on_save: true

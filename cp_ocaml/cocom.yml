@@ -64,7 +64,6 @@ compiler:
   name: Ocaml
   source: main.ml
   compile: ocamlfind # empty if no compilation to be performed
-   # main.extension automatically detected as solution file
   args:
     - ocamlopt
     - -O2

@@ -51,7 +51,6 @@ compiler:
   name: ARM64
   source: main.s
   compile: g++ # empty if no compilation to be performed
-  # main.extension automatically detected as solution file
   args:
     - -o
     - main
