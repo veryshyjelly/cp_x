@@ -1,0 +1,82 @@
+version: 1.0
+
+author: Ayush Biswas
+
+editor: "code {{ .Filename }}"
+
+# How to generate the destination filename.
+filename:
+  rules:
+    - site: codeforces.com
+      regex: "(?:problemset/problem|contest)/(\\d+)(?:/problem)?/([A-Za-z0-9]+)"
+      template: './src/bin/cf_{{ index .Captures 1 }}_{{ index .Captures 2 }}_{{ .Title | stripPrefix "-" | toSnakeCase }}.ml'
+
+    - site: atcoder.jp
+      regex: "contests/([^/]+)/tasks/([^_]+)_([a-z]+)"
+      template: './src/bin/{{ index .Captures 2 }}_{{ index .Captures 3 | toLowerCase }}_{{ .Title | stripPrefix "-" | toSnakeCase }}.ml'
+
+    - site: cses.fi
+      regex: "problemset/task/(\\d+)/?$"
+      template: './src/bin/cses_{{ index .Captures 1 }}_{{ .Title | stripPrefix "-" | toSnakeCase }}.ml'
+
+    - site: judge.u-aizu.ac.jp
+      regex: "description\\.jsp\\?id=([A-Za-z0-9_]+)"
+      template: './src/bin/aoj_{{ index .Captures 1 }}_{{ .Title | stripPrefix "-" | toSnakeCase }}.ml'
+
+    - site: open.kattis.com
+      regex: "problems/([^/?]+)/?"
+      template: "./src/bin/{{ index .Captures 1 }}.ml"
+
+
+# Base source template.
+template:
+  source: ./src/main.ml
+  modifier: |
+    (* Created by {{ .Author }} at {{ .Time }} 
+       {{ .Url }} *)
+    {{ .Code }}
+
+# Optional code post-processing.
+code:
+  modifier: |
+    module Lib = struct
+    {{range .LibFiles}}
+    
+    module {{ .Name | toPascalCase }} = struct
+    {{ .Content }}
+    end
+    
+    {{end}}
+    end
+    
+    {{ .Code }}
+
+# Library injection.
+lib:
+  regex: "open Lib"
+  include:
+    dsu: "./src/lib/dsu.ml"
+    mod: "./src/lib/mod.ml"
+    heap: "./src/lib/heap.ml"
+
+# Compilation.
+compiler:
+  name: Ocaml
+  source: main.ml
+  compile: ocamlfind # empty if no compilation to be performed
+   # main.extension automatically detected as solution file
+  args:
+    - ocamlopt
+    - -O2
+    - -o
+    - a.out
+    - main.ml
+    - -linkpkg
+    - -thread
+    - -package
+    - str,num,zarith,threads,containers,core,iter,batteries
+  run: ./a.out
+
+# Behaviour
+create_file: true
+run_on_save: true

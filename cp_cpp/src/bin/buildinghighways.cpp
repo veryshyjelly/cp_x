@@ -1,5 +1,6 @@
 // Created by Ayush Biswas at 2026/05/05 20:32
 // https://open.kattis.com/problems/buildinghighways
+
 /// @head begin
 #include <iostream>
 #include <vector>

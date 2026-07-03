@@ -1,5 +1,6 @@
 // Created by Ayush Biswas at 2026/05/06 13:20
 // https://open.kattis.com/problems/fendofftitan
+
 /// @head begin
 #include <iostream>
 #include <vector>

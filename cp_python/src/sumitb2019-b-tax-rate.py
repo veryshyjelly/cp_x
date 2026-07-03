@@ -1,8 +1,9 @@
-# Created by Ayush Biswas at 2025/08/13 18:33
+# Created by Ayush Biswas at 2026/07/03 18:13 
 # https://atcoder.jp/contests/sumitrust2019/tasks/sumitb2019_b
-from cpio.cpio import sol
+from cpio.cpio import sol_n
 
 # @code begin
+
 from math import ceil, floor
 
 
@@ -17,3 +18,4 @@ def solution(n: int, a: list[int]) -> str | int:
 solution()
 
 # @code end
+

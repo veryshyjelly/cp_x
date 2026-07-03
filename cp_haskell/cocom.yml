@@ -1,0 +1,68 @@
+version: 1.0
+
+author: Ayush Biswas
+
+editor: "code {{ .Filename }}"
+
+# How to generate the destination filename.
+filename:
+  rules:
+    - site: codeforces.com
+      regex: "(?:problemset/problem|contest)/(\\d+)(?:/problem)?/([A-Za-z0-9]+)"
+      template: './bin/{{ index .Captures 1 }}-{{ index .Captures 2 }}-{{ .Title | stripPrefix "."  | toKebabCase }}.hs'
+
+    - site: atcoder.jp
+      regex: "contests/([^/]+)/tasks/([^_]+)_([a-z]+)"
+      template: './bin/{{ index .Captures 2 }}-{{ index .Captures 3 | toLowerCase }}{{if gt (.Title | stripPrefix "-" | len) 0}}-{{ .Title | stripPrefix "-"  | toKebabCase }}{{- end -}}.hs'
+
+    - site: cses.fi
+      regex: "problemset/task/(\\d+)/?$"
+      template: './bin/cses-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.hs'
+
+    - site: judge.u-aizu.ac.jp
+      regex: "description\\.jsp\\?id=([A-Za-z0-9_]+)"
+      template: './bin/aoj-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.hs'
+
+    - site: open.kattis.com
+      regex: "problems/([^/?]+)/?"
+      template: "./bin/{{ index .Captures 1 }}.hs"
+
+# Base source template.
+template:
+  source: ./Main.hs
+  modifier: |
+    -- Created by {{ .Author }} at {{ .Time }} 
+    -- {{ .Url }} 
+    {{ .Code }}
+
+# Optional code post-processing.
+code:
+  modifier: |
+    {{ range .LibFiles }}
+    
+    {{ .Content }}
+
+    {{end}}
+
+    {{ .Code }}
+    
+
+# Library injection.
+lib:
+  regex: "import.*{{ .Name }}"
+  include:
+    _: "./bin/lib/"
+
+# Compilation.
+compiler:
+  name: Haskell
+  source: main.hs
+  compile: ghc # empty if no compilation to be performed
+  # main.extension automatically detected as solution file
+  args:
+    - main.hs
+  run: ./main
+
+# Behaviour
+create_file: true
+run_on_save: true

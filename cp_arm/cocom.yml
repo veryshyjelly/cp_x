@@ -1,0 +1,63 @@
+version: 1.0
+
+author: Ayush Biswas
+
+editor: "code {{ .Filename }}"
+
+# How to generate the destination filename.
+filename:
+  rules:
+    - site: codeforces.com
+      regex: "(?:problemset/problem|contest)/(\\d+)(?:/problem)?/([A-Za-z0-9]+)"
+      template: './src/{{ index .Captures 1 }}-{{ index .Captures 2 }}-{{ .Title | stripPrefix "."  | toKebabCase }}.s'
+
+    - site: atcoder.jp
+      regex: "contests/([^/]+)/tasks/([^_]+)_([a-z]+)"
+      template: './src/{{ index .Captures 2 }}-{{ index .Captures 3 | toLowerCase }}{{if gt (.Title | stripPrefix "-" | len) 0}}-{{ .Title | stripPrefix "-"  | toKebabCase }}{{- end -}}.s'
+
+    - site: cses.fi
+      regex: "problemset/task/(\\d+)/?$"
+      template: './src/cses-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.s'
+
+    - site: judge.u-aizu.ac.jp
+      regex: "description\\.jsp\\?id=([A-Za-z0-9_]+)"
+      template: './src/aoj-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.s'
+
+    - site: open.kattis.com
+      regex: "problems/([^/?]+)/?"
+      template: "./src/{{ index .Captures 1 }}.s"
+
+# Base source template.
+template:
+  source: ./main.rs
+  modifier: |
+    // Created by {{ .Author }} at {{ .Time }} 
+    // {{ .Url }} 
+    {{ .Code }}
+
+# Optional code post-processing.
+code:
+  modifier: |
+    {{ .Code }}
+
+# Library injection.
+lib:
+  regex: ""
+  include:
+    
+
+# Compilation.
+compiler:
+  name: ARM64
+  source: main.s
+  compile: g++ # empty if no compilation to be performed
+  # main.extension automatically detected as solution file
+  args:
+    - -o
+    - main
+    - main.s
+  run: ./main
+
+# Behaviour
+create_file: true
+run_on_save: true

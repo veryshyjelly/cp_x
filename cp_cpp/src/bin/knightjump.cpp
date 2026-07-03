@@ -1,5 +1,6 @@
 // Created by Ayush Biswas at 2026/05/06 14:13
 // https://open.kattis.com/problems/knightjump
+
 /// @head begin
 #include <iostream>
 #include <vector>
