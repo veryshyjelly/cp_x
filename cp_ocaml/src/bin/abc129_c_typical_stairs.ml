@@ -3,6 +3,10 @@
 open Core
 open Lib
 
+module Mod = Mod.Make (struct
+    let mod_ = 7 + Int.pow 10 9
+  end)
+
 let sol n m =
   let a = Array.create ~len:(n + 1) 1 in
   for _ = 1 to m do

@@ -12,5 +12,4 @@ sol_n! {
         s.len()%2 == 0 && s[0] != ')' && *s.last().unwrap() != '('
     }
 }
-
 // @code end

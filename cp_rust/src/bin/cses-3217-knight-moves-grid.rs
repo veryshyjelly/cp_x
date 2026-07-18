@@ -42,5 +42,4 @@ sol! {
         board.into_iter().map(words_of).collect()
     }
 }
-
 // @code end

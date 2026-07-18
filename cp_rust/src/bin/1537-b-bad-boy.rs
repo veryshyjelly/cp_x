@@ -12,5 +12,4 @@ sol_n! {
         ListOf(vec![1, 1, n, m])
     }
 }
-
 // @code end

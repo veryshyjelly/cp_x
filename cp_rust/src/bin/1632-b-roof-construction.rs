@@ -13,5 +13,4 @@ sol_n! {
         (0..m).rev().chain(m..n).collect()
     }
 }
-
 // @code end

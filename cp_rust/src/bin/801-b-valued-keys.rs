@@ -19,5 +19,4 @@ sol! {
         y.into_iter().collect()
     }
 }
-
 // @code end

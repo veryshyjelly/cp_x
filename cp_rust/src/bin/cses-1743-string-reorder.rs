@@ -54,5 +54,4 @@ sol! {
 fn mode(count: &HashMap<char, usize>) -> usize {
     count.into_iter().max_by_key(|&(_, v)| v).unwrap().1.clone()
 }
-
 // @code end

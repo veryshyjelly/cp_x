@@ -21,5 +21,4 @@ sol_n! {
         vec![1, n, one_count - shift + 1, n - shift].into()
     }
 }
-
 // @code end

@@ -18,5 +18,4 @@ sol_n! {
         n != 1
     }
 }
-
 // @code end

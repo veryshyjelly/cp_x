@@ -21,5 +21,4 @@ sol! {
         .unwrap_or_else(|e| e)
     }
 }
-
 // @code end

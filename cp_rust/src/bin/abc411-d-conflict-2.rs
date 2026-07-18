@@ -30,5 +30,4 @@ sol! {
         res.join("")
     }
 }
-
 // @code end

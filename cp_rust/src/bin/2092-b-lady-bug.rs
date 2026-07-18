@@ -20,5 +20,4 @@ sol_n! {
         (f >= n.div_ceil(2) && s >= n / 2).into()
     }
 }
-
 // @code end

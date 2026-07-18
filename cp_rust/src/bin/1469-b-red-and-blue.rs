@@ -26,5 +26,4 @@ sol_n! {
         r_tak + l_tak
     }
 }
-
 // @code end

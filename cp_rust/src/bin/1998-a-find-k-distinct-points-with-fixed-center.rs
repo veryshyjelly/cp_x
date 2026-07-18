@@ -22,5 +22,4 @@ sol_n! {
         res.into_iter().map(ListOf).collect()
     }
 }
-
 // @code end

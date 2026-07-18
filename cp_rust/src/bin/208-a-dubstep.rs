@@ -16,5 +16,4 @@ sol! {
             .join(" ")
     }
 }
-
 // @code end

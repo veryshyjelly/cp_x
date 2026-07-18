@@ -14,5 +14,4 @@ sol! {
         a.into_iter().unique().count()
     }
 }
-
 // @code end

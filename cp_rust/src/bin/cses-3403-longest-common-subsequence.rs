@@ -53,5 +53,4 @@ sol! {
         vec![vec![res[n][m]].into(), result.into_iter().rev().collect()].into()
     }
 }
-
 // @code end

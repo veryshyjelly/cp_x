@@ -20,5 +20,4 @@ sol_n! {
              .unwrap_or(0)
     }
 }
-
 // @code end

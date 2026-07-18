@@ -3,6 +3,10 @@ https://atcoder.jp/contests/abc127/tasks/abc127_e *)
 open Core
 open Lib
 
+module Mod = Mod.Make (struct
+    let mod_ = 7 + Int.pow 10 9
+  end)
+
 let n = 2 * Int.pow 10 5
 
 let factorial =

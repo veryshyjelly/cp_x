@@ -3,10 +3,8 @@
 use cp_lib::*;
 
 // @code begin
-use std::mem::swap;
 use cpio::*;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
+use std::mem::swap;
 
 sol_n! {
     fn solution(
@@ -15,18 +13,17 @@ sol_n! {
         if x == y {
             return Failure(-1)
         }
-        
+
         if x < y {
             swap(&mut x, &mut y);
         }
-        
+
         let mut k = 1usize << x.ilog2();
         if k < x {
             k <<= 1;
         }
-        
+
         Success(k - x)
     }
 }
-
 // @code end

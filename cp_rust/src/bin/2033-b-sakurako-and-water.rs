@@ -25,5 +25,4 @@ sol_n! {
         -values.values().sum::<isize>()
     }
 }
-
 // @code end

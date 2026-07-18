@@ -16,7 +16,8 @@ impl Monoid for Freq {
         [0; 6]
     }
     fn binary_operation(a: &Self::S, b: &Self::S) -> Self::S {
-        a.iter().zip(b.iter())
+        a.iter()
+            .zip(b.iter())
             .map(|(ai, bi)| ai + bi)
             .collect_vec()
             .try_into()
@@ -58,5 +59,4 @@ sol! {
         res.into()
     }
 }
-
 // @code end

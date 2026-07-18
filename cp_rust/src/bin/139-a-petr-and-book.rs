@@ -28,5 +28,4 @@ sol! {
         ks.into_iter().enumerate().find(|&(_, ki)| ki == kmin).unwrap().0 + 1
     }
 }
-
 // @code end

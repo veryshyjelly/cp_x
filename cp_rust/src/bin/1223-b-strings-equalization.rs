@@ -16,5 +16,4 @@ sol_n! {
         s.intersection(&t).count() != 0
     }
 }
-
 // @code end

@@ -14,20 +14,19 @@ sol! {
     ) -> usize {
         let mut heap: BinaryHeap<Reverse<isize>> = BinaryHeap::new(); // min-heap
         let mut sum = 0isize;
-    
+
         for ai in a {
             heap.push(Reverse(ai));
             sum += ai;
-    
+
             // Sum went negative: evict the element that hurt us most
             if sum < 0 {
                 let Reverse(min_val) = heap.pop().unwrap();
                 sum -= min_val; // undo its contribution
             }
         }
-    
+
         heap.len()
     }
 }
-
 // @code end

@@ -1,0 +1,67 @@
+version: 1.0
+
+author: Ayush Biswas
+
+editor: "zed {{ .Filename }}"
+
+# How to generate the destination filename.
+filename:
+  rules:
+    - site: codeforces.com
+      regex: "(?:problemset/problem|contest)/(\\d+)(?:/problem)?/([A-Za-z0-9]+)"
+      template: './src/bin/{{ index .Captures 1 }}-{{ index .Captures 2 }}-{{ .Title | stripPrefix "."  | toKebabCase }}.nim'
+
+    - site: atcoder.jp
+      regex: "contests/([^/]+)/tasks/([^_]+)_([a-z]+)"
+      template: './src/bin/{{ index .Captures 2 }}-{{ index .Captures 3 | toLowerCase }}{{if gt (.Title | stripPrefix "-" | len) 0}}-{{ .Title | stripPrefix "-"  | toKebabCase }}{{- end -}}.nim'
+
+    - site: cses.fi
+      regex: "problemset/task/(\\d+)/?$"
+      template: "./src/bin/cses-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.nim"
+
+    - site: judge.u-aizu.ac.jp
+      regex: "description\\.jsp\\?id=([A-Za-z0-9_]+)"
+      template: "./src/bin/aoj-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.nim"
+
+    - site: open.kattis.com
+      regex: "problems/([^/?]+)/?"
+      template: "./src/bin/{{ index .Captures 1 }}.nim"
+
+# Base source template.
+template:
+  source: ./src/main.nim
+  modifier: |
+    # Created by {{ .Author }} at {{ .Time }}
+    # {{ .Url }}
+    {{ .Code }}
+
+# Optional code post-processing.
+code:
+  modifier: |
+    {{ range .LibFiles }}
+    ## lib {{ .Name }}
+    {{ .Content }}
+    ## end {{ .Name }}
+    {{end}}
+    {{ .Code }}
+
+# Library injection.
+lib:
+  regex: "import.*{{.Name}}"
+  include:
+    _: "./src/lib/"
+
+# Compilation.
+compiler:
+  name: Nim
+  source: main.nim
+  compile: nim # empty if no compilation to be performed
+  args:
+    - c
+    - -d:release
+    - main.nim
+  run: ./main
+
+# Behaviour
+create_file: true
+run_on_save: true

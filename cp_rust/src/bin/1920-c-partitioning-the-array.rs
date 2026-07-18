@@ -6,8 +6,6 @@ use cp_lib::*;
 use cpio::*;
 use math::gcd;
 
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 // const N: u32 = 2 * 100000;
 
 sol_n! {
@@ -30,5 +28,4 @@ sol_n! {
         res
     }
 }
-
 // @code end

@@ -35,5 +35,4 @@ sol! {
         (res[n][required_sum] % MOD * 500000004) % MOD
     }
 }
-
 // @code end

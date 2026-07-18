@@ -13,5 +13,4 @@ sol_n! {
         vec![('a'..).take(k).collect::<String>(); n].concat()
     }
 }
-
 // @code end

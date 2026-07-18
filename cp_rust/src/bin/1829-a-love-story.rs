@@ -16,5 +16,4 @@ sol_n! {
              .count()
     }
 }
-
 // @code end

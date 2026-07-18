@@ -21,5 +21,4 @@ sol_n! {
         grps.len() == 1 || (grps.len() == 2 && grps[0].abs_diff(grps[1]) < 2)
     }
 }
-
 // @code end

@@ -38,5 +38,4 @@ fn permutations(s: &mut Vec<char>, i: usize) -> Vec<String> {
         .collect::<Vec<_>>()
         .concat()
 }
-
 // @code end

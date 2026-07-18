@@ -24,5 +24,4 @@ sol! {
         moves
     }
 }
-
 // @code end

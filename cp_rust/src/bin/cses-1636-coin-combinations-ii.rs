@@ -29,5 +29,4 @@ sol! {
         res[target] % MOD
     }
 }
-
 // @code end

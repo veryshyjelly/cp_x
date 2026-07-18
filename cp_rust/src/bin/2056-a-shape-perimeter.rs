@@ -18,5 +18,4 @@ sol_n! {
                 .sum::<u16>()
     }
 }
-
 // @code end

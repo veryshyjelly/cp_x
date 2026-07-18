@@ -33,5 +33,4 @@ fn tower(size: usize, source: usize, destination: usize) -> Vec<[usize; 2]> {
         .chain(move_rest.into_iter())
         .collect()
 }
-
 // @code end

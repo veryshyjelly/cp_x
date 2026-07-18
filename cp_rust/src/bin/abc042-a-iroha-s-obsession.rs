@@ -5,8 +5,6 @@ use cp_lib::*;
 // @code begin
 use cpio::*;
 use std::collections::HashSet;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 
 sol! {
     fn solution(
@@ -35,5 +33,4 @@ fn digits(i: usize) -> HashSet<u8> {
         })
         .collect()
 }
-
 // @code end

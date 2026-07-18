@@ -20,5 +20,4 @@ sol! {
             .saturating_sub(1)
     }
 }
-
 // @code end

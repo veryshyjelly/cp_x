@@ -13,5 +13,4 @@ sol_n! {
         n.div_ceil(x.min(y))
     }
 }
-
 // @code end

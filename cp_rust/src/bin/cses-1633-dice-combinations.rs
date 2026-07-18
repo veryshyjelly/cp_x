@@ -39,5 +39,4 @@ sol! {
         ways[n] % MOD
     }
 }
-
 // @code end

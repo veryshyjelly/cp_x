@@ -5,8 +5,6 @@ use cp_lib::*;
 // @code begin
 use cpio::*;
 use std::collections::{HashMap, HashSet};
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 
 sol! {
     fn solution(
@@ -52,5 +50,4 @@ sol! {
         "FUCK".into()
     }
 }
-
 // @code end

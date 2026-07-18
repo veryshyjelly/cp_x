@@ -31,5 +31,4 @@ sol! {
         Ok(vec![vec![a, b].into(), vec![c, d].into()].into()).into()
     }
 }
-
 // @code end

@@ -12,5 +12,4 @@ sol_n! {
         (a - b).abs() % 2 == 0
     }
 }
-
 // @code end

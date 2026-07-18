@@ -12,5 +12,4 @@ sol_n! {
         ('a'..='z').take(b).cycle().take(a).cycle().take(n).collect()
     }
 }
-
 // @code end

@@ -13,5 +13,4 @@ sol_n! {
         (1..=n).map(|i| 2 * i - 1).collect()
     }
 }
-
 // @code end

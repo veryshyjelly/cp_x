@@ -54,5 +54,4 @@ fn next_cell((x, y): (usize, usize), (_n, m): (usize, usize)) -> (usize, usize) 
     let idx = x * m + y + 1;
     (idx / m, idx % m)
 }
-
 // @code end

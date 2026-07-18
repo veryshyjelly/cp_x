@@ -12,5 +12,4 @@ sol_n! {
         vec![(b+c+1)%2, (a+c+1)%2, (a+b+1)%2].into()
     }
 }
-
 // @code end

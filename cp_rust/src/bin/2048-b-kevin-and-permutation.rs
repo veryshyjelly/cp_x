@@ -27,5 +27,4 @@ sol_n! {
         ListOf(res)
     }
 }
-
 // @code end

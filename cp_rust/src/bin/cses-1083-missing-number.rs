@@ -15,5 +15,4 @@ sol! {
         observed ^ theoretical
     }
 }
-
 // @code end

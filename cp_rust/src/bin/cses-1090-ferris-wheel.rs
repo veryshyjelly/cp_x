@@ -33,5 +33,4 @@ sol! {
         res
     }
 }
-
 // @code end

@@ -12,5 +12,4 @@ sol_n! {
         n.min(k) * m.min(k)
     }
 }
-
 // @code end

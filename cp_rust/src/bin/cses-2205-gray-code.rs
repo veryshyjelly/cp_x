@@ -23,5 +23,4 @@ fn gray(i: usize, n: usize) -> Vec<u8> {
         })
         .collect()
 }
-
 // @code end

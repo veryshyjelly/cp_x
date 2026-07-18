@@ -20,5 +20,4 @@ sol_n! {
         a.iter().sum::<usize>() - a[n - 1] + zero_count
     }
 }
-
 // @code end

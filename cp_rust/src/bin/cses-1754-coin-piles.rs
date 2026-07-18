@@ -15,5 +15,4 @@ sol_n! {
         (a >= diff && (a - diff)%3 == 0).into()
     }
 }
-
 // @code end

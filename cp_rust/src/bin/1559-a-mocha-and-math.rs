@@ -13,5 +13,4 @@ sol_n! {
         a.into_iter().fold(usize::MAX, |acc, ai| acc & ai)
     }
 }
-
 // @code end

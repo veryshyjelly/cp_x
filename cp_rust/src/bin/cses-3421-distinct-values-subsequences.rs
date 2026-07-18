@@ -22,5 +22,4 @@ sol! {
         ).val()
     }
 }
-
 // @code end

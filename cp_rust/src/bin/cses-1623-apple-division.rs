@@ -32,5 +32,4 @@ fn knapsack(a: &Vec<usize>, i: usize, target: usize) -> usize {
         knapsack(a, i + 1, target),
     )
 }
-
 // @code end

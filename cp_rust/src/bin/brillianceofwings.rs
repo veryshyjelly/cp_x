@@ -6,8 +6,6 @@ use cp_lib::*;
 use cpio::*;
 use itertools::Itertools;
 use std::collections::HashSet;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 
 fn hash(mut l: [usize; 2], m: usize) -> usize {
     l.sort();
@@ -35,5 +33,4 @@ sol! {
         a.symmetric_difference(&b).collect_vec().len() / 2
     }
 }
-
 // @code end

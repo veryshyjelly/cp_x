@@ -16,5 +16,4 @@ sol! {
         f.into_iter().take(n.saturating_sub(1)).map(|g| g.len()).sum()
     }
 }
-
 // @code end

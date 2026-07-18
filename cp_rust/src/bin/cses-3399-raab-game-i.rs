@@ -23,5 +23,4 @@ sol_n! {
         ].into()).into()
     }
 }
-
 // @code end

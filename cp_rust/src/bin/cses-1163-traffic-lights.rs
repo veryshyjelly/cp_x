@@ -43,5 +43,4 @@ sol! {
             .collect()
     }
 }
-
 // @code end

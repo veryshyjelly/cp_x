@@ -18,5 +18,4 @@ sol_n! {
         min(a_sum + b_min * n, b_sum + a_min * n)
     }
 }
-
 // @code end

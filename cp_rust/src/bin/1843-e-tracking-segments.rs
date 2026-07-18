@@ -3,10 +3,8 @@
 use cp_lib::*;
 
 // @code begin
-use cpio::*;
 use binary_search::*;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
+use cpio::*;
 
 sol_n! {
     fn solution(
@@ -21,14 +19,14 @@ sol_n! {
                 a[idxs[i]] = 1;
             }
             for i in 0..n {
-                a[i + 1] += a[i]; 
+                a[i + 1] += a[i];
             }
             for &[l, r] in &ranges {
                 if a[r] - a[l - 1] > ((r - l + 1) / 2) as u32 {
-                    return true 
+                    return true
                 }
             }
-            false 
+            false
         };
         let res = search_right(0, q, f);
         if f(res) {
@@ -38,5 +36,4 @@ sol_n! {
         }
     }
 }
-
 // @code end

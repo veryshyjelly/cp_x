@@ -13,5 +13,4 @@ sol_n! {
         s.split('+').map(|x| x.parse::<usize>().unwrap()).sum()
     }
 }
-
 // @code end

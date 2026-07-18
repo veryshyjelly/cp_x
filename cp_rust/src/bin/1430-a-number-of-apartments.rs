@@ -39,5 +39,4 @@ sol_n! {
         Failure(-1)
     }
 }
-
 // @code end

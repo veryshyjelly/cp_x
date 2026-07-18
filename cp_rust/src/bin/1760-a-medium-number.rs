@@ -14,5 +14,4 @@ sol_n! {
         a.into_iter().sorted().skip(1).next().unwrap()
     }
 }
-
 // @code end

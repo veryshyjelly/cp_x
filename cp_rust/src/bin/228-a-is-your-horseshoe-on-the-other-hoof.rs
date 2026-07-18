@@ -13,5 +13,4 @@ sol! {
         4 - shoes.into_iter().collect::<HashSet<_>>().len()
     }
 }
-
 // @code end

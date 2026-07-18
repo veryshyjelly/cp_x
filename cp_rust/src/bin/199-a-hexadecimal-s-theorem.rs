@@ -21,5 +21,4 @@ sol! {
         vec![0, a, b].into()
     }
 }
-
 // @code end

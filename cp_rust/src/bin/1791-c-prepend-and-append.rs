@@ -23,5 +23,4 @@ sol_n! {
         j - i + 1
     }
 }
-
 // @code end

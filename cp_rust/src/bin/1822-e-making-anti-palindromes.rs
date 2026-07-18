@@ -6,8 +6,6 @@ use cpio::*;
 // @code begin
 use std::collections::HashMap;
 use std::ops::AddAssign;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 
 sol_n! {
     fn solution(
@@ -45,5 +43,4 @@ sol_n! {
         Success(res)
     }
 }
-
 // @code end

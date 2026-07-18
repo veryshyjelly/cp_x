@@ -5,8 +5,6 @@ use cp_lib::*;
 // @code begin
 use cpio::*;
 
-// const INF: usize = 10usize.pow(9) + 7;
-
 sol! {
     fn solution(
         _n: usize,
@@ -26,5 +24,4 @@ sol! {
         lis.len()
     }
 }
-
 // @code end

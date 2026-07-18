@@ -15,5 +15,4 @@ sol_n! {
         n > 2 * k && s[..k] == s_rev[..k] && s[n - k..] == s_rev[n - k..]
     }
 }
-
 // @code end

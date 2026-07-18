@@ -5,8 +5,6 @@ use cp_lib::*;
 // @code begin
 use cpio::*;
 const MOD: usize = 10usize.pow(9) + 7;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 
 sol! {
     fn solution(
@@ -33,7 +31,7 @@ fn matmul(a: &Vec<Vec<usize>>, b: &Vec<Vec<usize>>) -> Vec<Vec<usize>> {
                 res[i][j] = (res[i][j] + a[i][k] * b[k][j]) % MOD;
             }
         }
-    } 
+    }
     res
 }
 
@@ -64,5 +62,4 @@ fn matpow(mut base: Vec<Vec<usize>>, mut exp: usize) -> Vec<Vec<usize>> {
 
     result
 }
-
 // @code end

@@ -17,5 +17,4 @@ sol! {
         .sum::<usize>() + 1
     }
 }
-
 // @code end

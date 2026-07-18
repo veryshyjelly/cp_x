@@ -75,5 +75,4 @@ sol! {
         res.into()
     }
 }
-
 // @code end

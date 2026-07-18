@@ -62,5 +62,4 @@ fn find_cycle(graph: Vec<Vec<usize>>, n: usize) -> Option<(usize, Vec<usize>)> {
     }
     None
 }
-
 // @code end

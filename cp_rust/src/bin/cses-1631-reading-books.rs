@@ -17,5 +17,4 @@ sol! {
         a[0..n-1].into_iter().sum::<usize>().max(a[n-1]) + a[n-1]
     }
 }
-
 // @code end

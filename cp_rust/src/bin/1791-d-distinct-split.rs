@@ -28,5 +28,4 @@ sol_n! {
         (0..n-1).map(|i| prefix[i] + suffix[n - i - 2]).max().unwrap()
     }
 }
-
 // @code end

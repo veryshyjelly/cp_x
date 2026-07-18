@@ -26,5 +26,4 @@ sol_n! {
         ListOf(a)
     }
 }
-
 // @code end

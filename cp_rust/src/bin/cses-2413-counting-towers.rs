@@ -42,5 +42,4 @@ sol! {
         }).collect()
     }
 }
-
 // @code end

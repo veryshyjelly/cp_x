@@ -14,5 +14,4 @@ sol_n! {
         x.into_iter().map(|xi| xi.min(a - 1)).sum::<usize>() + b
     }
 }
-
 // @code end

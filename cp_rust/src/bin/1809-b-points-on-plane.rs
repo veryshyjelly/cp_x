@@ -20,5 +20,4 @@ sol_n! {
         r - 1
     }
 }
-
 // @code end

@@ -19,5 +19,4 @@ sol_n! {
         }).unwrap_err()
     }
 }
-
 // @code end

@@ -35,5 +35,4 @@ sol_n! {
         res.into_iter().collect()
     }
 }
-
 // @code end

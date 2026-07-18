@@ -13,5 +13,4 @@ sol_n! {
         n * (m / 2)
     }
 }
-
 // @code end

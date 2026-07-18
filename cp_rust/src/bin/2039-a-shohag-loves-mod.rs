@@ -12,5 +12,4 @@ sol_n! {
         (0..n).map(|i| 2 * i + 1).collect()
     }
 }
-
 // @code end

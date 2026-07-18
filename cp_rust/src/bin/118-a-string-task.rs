@@ -16,5 +16,4 @@ sol! {
         once('.').chain(s.to_lowercase().chars().filter(|c| !vowels.contains(c)).intersperse('.')).collect()
     }
 }
-
 // @code end

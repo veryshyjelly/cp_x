@@ -1,7 +1,11 @@
-(* Created by Ayush Biswas at 2026/06/27 11:40 
- https://atcoder.jp/contests/abc129/tasks/abc129_e *)
+(* Created by Ayush Biswas at 2026/07/04 10:13 
+   https://atcoder.jp/contests/abc129/tasks/abc129_e *)
 open Core
 open Lib
+
+module Mod = Mod.Make (struct
+    let mod_ = 7 + Int.pow 10 9
+  end)
 
 let sol l =
   let open Char in

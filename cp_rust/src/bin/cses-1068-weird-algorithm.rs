@@ -30,5 +30,4 @@ sol! {
         once(n).chain(res).collect()
     }
 }
-
 // @code end

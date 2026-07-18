@@ -15,5 +15,4 @@ sol! {
         a.into_iter().sorted().collect()
     }
 }
-
 // @code end

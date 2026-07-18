@@ -6,8 +6,6 @@ use cp_lib::*;
 use cpio::*;
 use dsu::*;
 use itertools::Itertools;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 
 sol! {
     fn solution(
@@ -29,5 +27,4 @@ sol! {
         res
     }
 }
-
 // @code end

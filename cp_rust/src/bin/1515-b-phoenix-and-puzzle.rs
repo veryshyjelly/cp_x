@@ -14,5 +14,4 @@ sol_n! {
             || (n%2 == 0 && uint_sqrt(n/2).is_some())
     }
 }
-
 // @code end

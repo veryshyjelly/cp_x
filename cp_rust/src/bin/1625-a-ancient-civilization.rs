@@ -42,5 +42,4 @@ sol_n! {
            res_bin.iter().rev().fold(0, |acc, yi| acc * 2 + yi)
     }
 }
-
 // @code end

@@ -27,5 +27,4 @@ sol! {
         }.into()
     }
 }
-
 // @code end

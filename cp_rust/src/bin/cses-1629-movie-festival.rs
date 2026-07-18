@@ -25,5 +25,4 @@ sol! {
         res
     }
 }
-
 // @code end

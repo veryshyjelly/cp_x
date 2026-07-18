@@ -19,5 +19,4 @@ sol! {
             .collect()
     }
 }
-
 // @code end

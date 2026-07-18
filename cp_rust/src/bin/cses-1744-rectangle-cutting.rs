@@ -36,5 +36,4 @@ sol! {
         res[n][m]
     }
 }
-
 // @code end

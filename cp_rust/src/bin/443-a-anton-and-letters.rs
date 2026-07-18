@@ -17,5 +17,4 @@ sol! {
                .count()
     }
 }
-
 // @code end

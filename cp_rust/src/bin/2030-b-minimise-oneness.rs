@@ -12,5 +12,4 @@ sol_n! {
         vec!['0'; n - 1].into_iter().collect::<String>() + "1"
     }
 }
-
 // @code end

@@ -22,5 +22,4 @@ fn luckiness(n: usize) -> u32 {
     let n = n.to_string();
     n.chars().max().unwrap().to_digit(10).unwrap() - n.chars().min().unwrap().to_digit(10).unwrap()
 }
-
 // @code end

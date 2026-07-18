@@ -15,5 +15,4 @@ sol! {
         n - 2*ones.min(zeroes)
     }
 }
-
 // @code end

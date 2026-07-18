@@ -15,5 +15,4 @@ sol_n! {
         s.chars().group_by(|&c| c).map(|g| g.len()).max().unwrap() + n % 2
     }
 }
-
 // @code end

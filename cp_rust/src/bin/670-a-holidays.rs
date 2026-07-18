@@ -14,5 +14,4 @@ sol! {
         vec![weekly_holidays + extra_holidays.saturating_sub(5), weekly_holidays + extra_holidays.min(2)].into()
     }
 }
-
 // @code end

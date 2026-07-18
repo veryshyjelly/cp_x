@@ -27,5 +27,4 @@ sol! {
         rounds.values().sum()
     }
 }
-
 // @code end

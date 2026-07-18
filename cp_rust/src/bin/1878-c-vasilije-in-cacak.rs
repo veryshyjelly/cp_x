@@ -18,5 +18,4 @@ sol_n! {
           x >= half_sum && x <= (full_sum - quater_sum)
     }
 }
-
 // @code end

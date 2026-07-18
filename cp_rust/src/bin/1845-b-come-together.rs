@@ -24,5 +24,4 @@ sol_n! {
         res + 1
     }
 }
-
 // @code end

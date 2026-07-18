@@ -12,5 +12,4 @@ sol_n! {
         "codeforces".contains(&c)
     }
 }
-
 // @code end

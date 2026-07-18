@@ -89,5 +89,4 @@ fn mv(c: char) -> (isize, isize) {
         _ => (0, 0),
     }
 }
-
 // @code end

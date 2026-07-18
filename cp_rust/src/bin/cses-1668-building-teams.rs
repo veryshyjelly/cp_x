@@ -46,5 +46,4 @@ fn assign_grps(friends: Vec<Vec<usize>>, n: usize) -> Option<Vec<usize>> {
     }
     Some(grp[1..].to_vec())
 }
-
 // @code end

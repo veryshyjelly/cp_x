@@ -18,5 +18,4 @@ sol_n! {
             .all(|ar| Itertools::is_sorted(ar.iter()))
     }
 }
-
 // @code end

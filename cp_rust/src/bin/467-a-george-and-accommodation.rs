@@ -14,5 +14,4 @@ sol! {
         pq.into_iter().filter(|pqi| pqi[1] - pqi[0] >= 2).count()
     }
 }
-
 // @code end

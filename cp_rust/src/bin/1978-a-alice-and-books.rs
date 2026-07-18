@@ -13,5 +13,4 @@ sol_n! {
         a.get(0..n - 1).unwrap().iter().max().unwrap() + a.last().unwrap()
     }
 }
-
 // @code end

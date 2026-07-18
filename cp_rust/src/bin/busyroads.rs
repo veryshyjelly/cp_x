@@ -60,5 +60,4 @@ sol! {
         distance[n]
     }
 }
-
 // @code end

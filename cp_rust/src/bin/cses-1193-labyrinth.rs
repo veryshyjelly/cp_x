@@ -81,5 +81,4 @@ fn opposite_direction(d: char) -> char {
         d => d,
     }
 }
-
 // @code end

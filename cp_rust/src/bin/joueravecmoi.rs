@@ -33,5 +33,4 @@ sol! {
         }).collect_vec().into()
     }
 }
-
 // @code end

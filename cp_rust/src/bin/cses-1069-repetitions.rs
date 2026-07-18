@@ -18,5 +18,4 @@ sol! {
             .unwrap()
     }
 }
-
 // @code end

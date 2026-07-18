@@ -6,8 +6,6 @@ use cp_lib::*;
 use cpio::*;
 use itertools::Itertools;
 use std::collections::HashSet;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 
 sol! {
     fn solution(
@@ -71,8 +69,7 @@ fn median(mut a: Vec<usize>) -> String {
 }
 
 fn three_digit(a: Vec<usize>) -> String {
-    a
-        .into_iter()
+    a.into_iter()
         .sorted()
         .filter(|ai| (100..=999usize).contains(ai))
         .map(|ai| ai.to_string())

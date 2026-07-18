@@ -12,5 +12,4 @@ sol_n! {
         s.into_iter().sum()
     }
 }
-
 // @code end

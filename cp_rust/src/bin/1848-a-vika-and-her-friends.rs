@@ -20,5 +20,4 @@ sol_n! {
         true.into()
     }
 }
-
 // @code end

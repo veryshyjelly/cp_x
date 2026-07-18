@@ -5,7 +5,7 @@ use cp_lib::*;
 // @code begin
 use cpio::*;
 use std::collections::BinaryHeap;
-// const INF: u32 = 10u32.pow(9);
+
 const INF: isize = 4 * 10isize.pow(18);
 
 #[derive(Clone)]
@@ -60,5 +60,4 @@ fn dijkstra(graph: Vec<Vec<Edge>>, start: usize, n: usize) -> Vec<isize> {
 
     d
 }
-
 // @code end

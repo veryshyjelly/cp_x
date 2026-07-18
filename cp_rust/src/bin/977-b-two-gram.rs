@@ -26,5 +26,4 @@ sol! {
         two_grams.into_iter().sorted_by_key(|(_, v)| v.clone()).last().unwrap().0
     }
 }
-
 // @code end

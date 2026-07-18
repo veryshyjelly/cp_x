@@ -50,5 +50,4 @@ sol! {
         Success(res[target] % MOD)
     }
 }
-
 // @code end

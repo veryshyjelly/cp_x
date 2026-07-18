@@ -37,5 +37,4 @@ sol_n! {
         Success(matrix.into_iter().map(|l| l.into_iter().collect()).collect())
     }
 }
-
 // @code end

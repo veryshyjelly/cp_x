@@ -21,5 +21,4 @@ sol! {
         .collect()
     }
 }
-
 // @code end

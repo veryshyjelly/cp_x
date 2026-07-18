@@ -14,5 +14,4 @@ sol_n! {
         max(n, m)
     }
 }
-
 // @code end

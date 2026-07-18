@@ -46,5 +46,4 @@ fn queens(
     }
     res
 }
-
 // @code end

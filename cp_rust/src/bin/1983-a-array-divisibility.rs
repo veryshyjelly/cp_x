@@ -12,5 +12,4 @@ sol_n! {
         (1..=n).collect()
     }
 }
-
 // @code end

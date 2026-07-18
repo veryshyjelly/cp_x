@@ -14,5 +14,4 @@ sol_n! {
         a[n - 1] - a[n - 2] + a.into_iter().take(n - 2).sum::<isize>()
     }
 }
-
 // @code end

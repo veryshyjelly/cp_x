@@ -41,5 +41,4 @@ sol! {
         Ok(format!("{}{}{}", side, mid, side.chars().rev().collect::<String>())).into()
     }
 }
-
 // @code end

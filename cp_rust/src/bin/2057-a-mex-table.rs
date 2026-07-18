@@ -12,5 +12,4 @@ sol_n! {
         usize::max(n, m) + 1
     }
 }
-
 // @code end

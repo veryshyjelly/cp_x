@@ -25,5 +25,4 @@ sol! {
         max_sum
     }
 }
-
 // @code end

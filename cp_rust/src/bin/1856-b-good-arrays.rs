@@ -18,5 +18,4 @@ sol_n! {
         other_sum - remaining_idx + one_count >= 2 * one_count && n > 1
     }
 }
-
 // @code end

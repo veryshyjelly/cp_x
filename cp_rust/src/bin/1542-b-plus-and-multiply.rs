@@ -4,29 +4,22 @@ use cp_lib::*;
 
 // @code begin
 use cpio::*;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 
 sol_n! {
     fn solution(
         [n, a, b]: [usize; 3]
-    ) -> String {
+    ) -> Bool {
         if a == 1 {
-            return if (n - 1)%b == 0 {
-                "Yes"
-            } else {
-                "No"
-            }.into()
+            return ((n - 1)%b == 0).into()
         }
         let mut c = 1;
         while c <= n {
             if c % b == n%b {
-                return "Yes".into()
+                return true.into()
             }
             c *= a;
         }
-        "No".into()
+        false.into()
     }
 }
-
 // @code end

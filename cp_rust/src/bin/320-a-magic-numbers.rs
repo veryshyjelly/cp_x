@@ -16,5 +16,4 @@ sol! {
             .collect::<Vec<_>>().join("").is_empty().into()
     }
 }
-
 // @code end

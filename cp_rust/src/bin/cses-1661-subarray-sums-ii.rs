@@ -24,5 +24,4 @@ sol! {
         .sum()
     }
 }
-
 // @code end

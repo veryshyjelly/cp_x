@@ -13,5 +13,4 @@ sol_n! {
         k < (n - (n + m - 1) / m)
     }
 }
-
 // @code end

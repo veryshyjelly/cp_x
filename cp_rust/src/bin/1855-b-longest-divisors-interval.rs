@@ -13,5 +13,4 @@ sol_n! {
         (1..).take_while(|i| n % i == 0).count()
     }
 }
-
 // @code end

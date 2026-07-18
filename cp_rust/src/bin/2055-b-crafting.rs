@@ -25,5 +25,4 @@ sol_n! {
             || (required_products.len() == 1 && (required_products[0].1 - required_products[0].0 <= amin))).into()
     }
 }
-
 // @code end

@@ -22,5 +22,4 @@ sol! {
         .into()
     }
 }
-
 // @code end

@@ -25,5 +25,4 @@ sol! {
         !Itertools::is_sorted(a.into_iter())
     }
 }
-
 // @code end

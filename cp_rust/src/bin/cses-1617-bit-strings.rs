@@ -13,5 +13,4 @@ sol! {
         pow_mod(2, n, 1e9 as u32 +7)
     }
 }
-
 // @code end

@@ -17,5 +17,4 @@ sol_n! {
         s
     }
 }
-
 // @code end

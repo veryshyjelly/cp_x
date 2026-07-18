@@ -48,5 +48,4 @@ sol! {
         // "".into()
     }
 }
-
 // @code end

@@ -22,5 +22,4 @@ sol_n! {
         nums.into_iter().product()
     }
 }
-
 // @code end

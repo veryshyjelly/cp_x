@@ -19,5 +19,4 @@ sol! {
         n
     }
 }
-
 // @code end

@@ -27,5 +27,4 @@ sol! {
         matrix.into_iter().map(|v| words_of(v)).collect()
     }
 }
-
 // @code end

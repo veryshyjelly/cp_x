@@ -20,5 +20,4 @@ sol! {
         Success((2..=n).step_by(2).chain((1..=n).step_by(2)).collect())
     }
 }
-
 // @code end

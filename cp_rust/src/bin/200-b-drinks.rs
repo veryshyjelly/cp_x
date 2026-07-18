@@ -13,5 +13,4 @@ sol! {
         a.into_iter().sum::<usize>() as f64 / n as f64
     }
 }
-
 // @code end

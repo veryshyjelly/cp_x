@@ -46,7 +46,6 @@ The program will then wait for input from stdin.
             // ...your solution logic
         }
     }
-
     // @code end
     ```
 

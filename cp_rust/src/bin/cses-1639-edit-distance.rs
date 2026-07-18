@@ -42,5 +42,4 @@ sol! {
         res[n_len][m_len]
     }
 }
-
 // @code end

@@ -19,5 +19,4 @@ sol_n! {
         a.iter().filter(|&&ai| ai == amin).count() * 2
     }
 }
-
 // @code end

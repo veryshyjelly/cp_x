@@ -15,5 +15,4 @@ sol_n! {
         a.into_iter().collect::<HashSet<_>>().len() + b.into_iter().collect::<HashSet<_>>().len() > 3
     }
 }
-
 // @code end

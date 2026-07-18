@@ -24,5 +24,4 @@ sol_n! {
         vec![vec![res.len()].into(), ListOf(res)].into()
     }
 }
-
 // @code end

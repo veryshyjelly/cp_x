@@ -12,5 +12,4 @@ sol! {
         n.div_ceil(a) * m.div_ceil(a)
     }
 }
-
 // @code end

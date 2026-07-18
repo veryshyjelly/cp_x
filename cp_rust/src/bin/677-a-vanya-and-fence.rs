@@ -13,5 +13,4 @@ sol! {
         n + a.into_iter().filter(|&ai| ai > h).count()
     }
 }
-
 // @code end

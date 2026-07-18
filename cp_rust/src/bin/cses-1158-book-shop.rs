@@ -30,5 +30,4 @@ sol! {
         res[budget][n % 2]
     }
 }
-
 // @code end

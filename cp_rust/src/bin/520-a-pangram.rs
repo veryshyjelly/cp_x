@@ -15,5 +15,4 @@ sol! {
         s.to_lowercase().chars().unique().count() == 26
     }
 }
-
 // @code end

@@ -15,5 +15,4 @@ sol_n! {
         vowels.into_iter().cycle().take(n).sorted().collect()
     }
 }
-
 // @code end

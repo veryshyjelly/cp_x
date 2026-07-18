@@ -15,5 +15,4 @@ sol_n! {
         (c - b) * (n - 1)
     }
 }
-
 // @code end

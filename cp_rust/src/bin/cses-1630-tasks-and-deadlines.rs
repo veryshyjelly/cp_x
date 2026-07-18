@@ -26,5 +26,4 @@ sol! {
         deadlines.into_iter().sum::<isize>() - delay
     }
 }
-
 // @code end

@@ -6,8 +6,6 @@ use cp_lib::*;
 use cpio::*;
 use itertools::Itertools;
 use lazysegtree::RangeSetAddSumTree;
-// const INF: u32 = 10u32.pow(9);
-// const INF: usize = 4 * 10usize.pow(18);
 
 sol! {
     fn solution(
@@ -31,5 +29,4 @@ sol! {
         .sum::<usize>()
     }
 }
-
 // @code end

@@ -19,5 +19,4 @@ sol_n! {
         return 3;
     }
 }
-
 // @code end

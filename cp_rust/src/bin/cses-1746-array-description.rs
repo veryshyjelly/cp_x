@@ -37,5 +37,4 @@ sol! {
         res[1-n%2].iter().sum::<usize>() % MOD
     }
 }
-
 // @code end

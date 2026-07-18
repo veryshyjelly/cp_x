@@ -30,5 +30,4 @@ sol! {
             }).map(|i| i+2).unwrap_or(0)
     }
 }
-
 // @code end

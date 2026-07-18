@@ -18,5 +18,4 @@ sol! {
         (ax - ay) != (cx - cy)
     }
 }
-
 // @code end

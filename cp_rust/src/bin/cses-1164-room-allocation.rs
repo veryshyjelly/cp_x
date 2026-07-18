@@ -40,5 +40,4 @@ sol! {
         lines_of(vec![vec![*res.iter().max().unwrap()].into(), res.into()])
     }
 }
-
 // @code end

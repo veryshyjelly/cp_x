@@ -18,5 +18,4 @@ sol_n! {
         .into()
     }
 }
-
 // @code end

@@ -31,5 +31,4 @@ sol_n! {
             .unwrap()
     }
 }
-
 // @code end

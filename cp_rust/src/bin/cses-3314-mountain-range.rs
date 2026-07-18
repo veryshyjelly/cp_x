@@ -62,5 +62,4 @@ sol! {
         *res.iter().max().unwrap()
     }
 }
-
 // @code end

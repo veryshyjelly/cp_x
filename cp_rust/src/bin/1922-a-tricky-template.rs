@@ -28,5 +28,4 @@ sol_n! {
         false
     }
 }
-
 // @code end

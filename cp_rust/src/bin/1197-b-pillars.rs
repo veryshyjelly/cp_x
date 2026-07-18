@@ -16,5 +16,4 @@ sol! {
             Itertools::is_sorted(a[max_idx..n].into_iter().rev())
     }
 }
-
 // @code end

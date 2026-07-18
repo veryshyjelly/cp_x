@@ -24,5 +24,4 @@ sol! {
             ).map(words_of).collect()
     }
 }
-
 // @code end

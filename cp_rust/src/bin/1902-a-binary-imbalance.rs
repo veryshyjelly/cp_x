@@ -16,5 +16,4 @@ sol_n! {
         s != vec![1]
     }
 }
-
 // @code end
