@@ -10,7 +10,7 @@ var r = newReader()
 
 let s = r[string]
 
-for c in 'a'..'z':
+for c in 'a' .. 'z':
   if not s.contains(c):
     echo c
     break

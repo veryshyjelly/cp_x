@@ -1,0 +1,69 @@
+version: 1.0
+
+author: Ayush Biswas
+
+editor: "zed {{ .Filename }}"
+
+# How to generate the destination filename.
+filename:
+  rules:
+    - site: codeforces.com
+      regex: "(?:problemset/problem|contest)/(\\d+)(?:/problem)?/([A-Za-z0-9]+)"
+      template: "./src/bin/cf_{{ index .Captures 1 }}_{{ index .Captures 2 }}.clj"
+
+    - site: atcoder.jp
+      regex: "contests/([^/]+)/tasks/([^_]+)_([a-z]+)"
+      template: "./src/bin/ac_{{ index .Captures 2 }}_{{ index .Captures 3 | toLowerCase }}.clj"
+
+    - site: cses.fi
+      regex: "problemset/task/(\\d+)/?$"
+      template: "./src/bin/cses_{{ index .Captures 1 }}_{{ .Title | toSnakeCase }}.rs"
+
+    - site: judge.u-aizu.ac.jp
+      regex: "description\\.jsp\\?id=([A-Za-z0-9_]+)"
+      template: "./src/bin/aoj_{{ index .Captures 1 }}_{{ .Title | toSnakeCase }}.rs"
+
+    - site: open.kattis.com
+      regex: "problems/([^/?]+)/?"
+      template: "./src/bin/{{ index .Captures 1 }}.rs"
+
+# Base source template.
+template:
+  source: ./src/template.clj
+  modifier: |
+    ;; Created by {{ .Author }} at {{ .Time }}
+    ;; {{ .Url }}
+    ;; {{ .Title }}
+    ;;
+    ;; @head begin
+    (ns bin.{{ .Filename | toKebabCase }})
+    ;; @head end
+
+    {{ .Code }}
+
+# Optional code post-processing.
+code:
+  modifier: |
+    {{.Header}}
+    {{ range .LibFiles }}
+    ;; lib {{ .Name }}
+    {{ .Content }}
+    ;; end {{ .Name }}
+    {{end}}
+    {{ .Code }}
+
+# Library injection.
+lib:
+  regex: "(require.*{{.Name}}.*)"
+  include:
+    _: "./src/lib/"
+
+# Compilation.
+compiler:
+  name: Clojure
+  source: main.clj
+  run: bb ./main.clj
+
+# Behaviour
+create_file: true
+run_on_save: true

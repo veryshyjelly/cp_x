@@ -15,8 +15,8 @@ let
 
 var res: int
 for w in s:
-  if t.contains(w[^3..^1]):
-    res += 1
+  if t.contains(w[^3 ..^ 1]):
+    inc res
 echo res
 
 # @code end

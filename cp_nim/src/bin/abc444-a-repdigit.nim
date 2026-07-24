@@ -1,6 +1,6 @@
 # Created by Ayush Biswas at 2026/07/18 18:53
 # https://atcoder.jp/contests/adt_easy_20260508_1/tasks/abc444_a
-import lib/cpio
+import ../lib/cpio
 
 # @code begin
 

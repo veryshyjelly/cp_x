@@ -15,12 +15,12 @@ let
 
 var numWays: int
 
-for i in 0..<6:
-  for j in 0..<6:
-    for k in 0..<6:
+for i in 0 ..< 6:
+  for j in 0 ..< 6:
+    for k in 0 ..< 6:
       let rolls = @[a[i], b[j], c[k]].sorted
       if rolls == @[4, 5, 6]:
-        numWays += 1
+        inc numWays
 
 echo numWays / (6 * 6 * 6)
 

@@ -8,7 +8,7 @@ var r = newReader()
 
 let (x, y, n) = r[int, int, int]
 
-if 3*x <= y:
+if 3 * x <= y:
   echo n * x
 else:
   let total = (n div 3) * y + (n mod 3) * x

@@ -2,7 +2,7 @@ version: 1.0
 
 author: Ayush Biswas
 
-editor: "zed {{ .Filename }}"
+editor: "code {{ .Filename }}"
 
 # How to generate the destination filename.
 filename:

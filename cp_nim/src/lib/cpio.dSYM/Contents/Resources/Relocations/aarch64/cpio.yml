@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/biswas/code/veryshyjelly/cp_x/cp_nim/src/lib/cpio'
+relocations:     []
+...

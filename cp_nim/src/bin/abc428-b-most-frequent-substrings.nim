@@ -14,13 +14,14 @@ let
 
 var freqs = initCountTable[string]()
 for i in 0 .. n - k:
-  freqs.inc(s[i..<i+k])
+  freqs.inc(s[i ..< i + k])
 
 let maxFreq = freqs.values.toSeq.max()
 echo maxFreq
 let res = collect:
   for k, v in freqs:
-    if v == maxFreq: k
-echo res.sorted.join(" ")
+    if v == maxFreq:
+      k
+echo Words(res.sorted)
 
 # @code end

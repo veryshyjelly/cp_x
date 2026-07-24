@@ -17,7 +17,7 @@ var counts = newSeq[int](n)
 
 for bird in birds:
   weights[bird[0] - 1] += bird[1]
-  counts[bird[0] - 1] += 1
+  inc counts[bird[0] - 1]
 
 for i in 0 ..< m:
   echo weights[i] / counts[i]

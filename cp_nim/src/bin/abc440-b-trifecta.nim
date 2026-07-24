@@ -14,6 +14,6 @@ let
 
 let mules: seq[int] = horses.pairs().toSeq.sortedByIt(it.val).mapIt(it.key + 1)
 
-echo Words(mules[0..2])
+echo Words(mules[0 .. 2])
 
 # @code end
