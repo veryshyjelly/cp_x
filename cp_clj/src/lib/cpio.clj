@@ -48,7 +48,7 @@
 ;; Core read dispatcher
 ;; -----------------------------------------------------------
 
-(defn read
+(defn read-buf
   "Read from a TokenReader according to a spec.
 
    Primitives (keyword):
@@ -86,20 +86,20 @@
     (and (vector? spec) (= 2 (count spec)))
     (let [[tag n] spec]
       (case tag
-        :ints      (vec (repeatedly n #(read r :int)))
-        :longs     (vec (repeatedly n #(read r :long)))
-        :doubles   (vec (repeatedly n #(read r :double)))
-        :strs      (vec (repeatedly n #(read r :str)))
-        :chars     (vec (repeatedly n #(read r :char)))
-        :grid-strs (vec (repeatedly n #(read r :str)))
-        :grid-chars (vec (repeatedly n #(vec (read r :str))))))
+        :ints      (vec (repeatedly n #(read-buf r :int)))
+        :longs     (vec (repeatedly n #(read-buf r :long)))
+        :doubles   (vec (repeatedly n #(read-buf r :double)))
+        :strs      (vec (repeatedly n #(read-buf r :str)))
+        :chars     (vec (repeatedly n #(read-buf r :char)))
+        :grid-strs (vec (repeatedly n #(read-buf r :str)))
+        :grid-chars (vec (repeatedly n #(vec (read-buf r :str))))))
 
     (and (vector? spec) (= 3 (count spec)))
     (let [[tag n m] spec]
       (case tag
-        :grid-ints     (vec (repeatedly n #(read r [:ints m])))
-        :grid-longs    (vec (repeatedly n #(read r [:longs m])))
-        :grid-doubles  (vec (repeatedly n #(read r [:doubles m])))))
+        :grid-ints     (vec (repeatedly n #(read-buf r [:ints m])))
+        :grid-longs    (vec (repeatedly n #(read-buf r [:longs m])))
+        :grid-doubles  (vec (repeatedly n #(read-buf r [:doubles m])))))
 
     :else (throw (IllegalArgumentException. (str "Unknown read spec: " spec)))))
 
@@ -112,7 +112,7 @@
   [^TokenReader r]
   (let [res (transient [])]
     (while (has-more? r)
-      (conj! res (read r :int)))
+      (conj! res (read-buf r :int)))
     (persistent! res)))
 
 (defn read-all-longs
@@ -120,7 +120,7 @@
   [^TokenReader r]
   (let [res (transient [])]
     (while (has-more? r)
-      (conj! res (read r :long)))
+      (conj! res (read-buf r :long)))
     (persistent! res)))
 
 ;; ============================================================
@@ -139,7 +139,7 @@
   (^LineReader [^BufferedReader br]
    (->LineReader br)))
 
-(defn read-line
+(defn read-line-buf
   "Read next raw line (returns nil on EOF)."
   [^LineReader r]
   (.readLine (.buffered-reader r)))
@@ -147,13 +147,13 @@
 (defn read-lines
   "Read n raw lines as a vector."
   [^LineReader r n]
-  (vec (repeatedly n #(read-line r))))
+  (vec (repeatedly n #(read-line-buf r))))
 
 (defn read-grid-raw
   "Read n lines, converting each to a char vector.
    Ideal for standard string grids (e.g., '....#')."
   [^LineReader r n]
-  (vec (repeatedly n #(vec (read-line r)))))
+  (vec (repeatedly n #(vec (read-line-buf r)))))
 
 ;; ============================================================
 ;; 3. OUTPUT UTILITIES
@@ -171,8 +171,9 @@
   (println x)
   (flush))
 
-(def Words #(str/join " " (map str %)))
-(def Lines #(str/join "\n" (map str %)))
+(def words #(str/join " " (map str %)))
+(def lines #(str/join "\n" (map str %)))
+(def yes-no #(if % "Yes" "No"))
 
 (defn print-grid-chars
   "Print a 2D char grid, one row per line, no spaces."
@@ -185,15 +186,27 @@
 ;; ============================================================
 
 (defmacro with-tokens
-  "Binds name to a token-reader and executes body."
-  [[name] & body]
-  `(let [~name (token-reader)]
-     ~@body))
+  "Binds name to a token-reader and executes f giving all the args."
+  [bindings f]
+  (let [pairs (partition 2 bindings)
+        lets  (mapcat (fn [[sym spec]]
+                        [sym `(read-buf in ~spec)])
+                      pairs)
+        args (map first pairs)]
+    `(let [in (token-reader)
+           ~@lets]
+       (println (~f ~@args)))))
 
 (defmacro with-lines
-  "Binds name to a line-reader and executes body."
-  [[name] & body]
-  `(let [~name (line-reader)]
-     ~@body))
+  "Binds name to a line-reader and executes f giving all the args."
+  [bindings f]
+  (let [pairs (partition 2 bindings)
+        lets  (mapcat (fn [[sym spec]]
+                        [sym `(read-buf in ~spec)])
+                      pairs)
+        args (map first pairs)]
+    `(let [in (line-reader)
+           ~@lets]
+       (println (~f ~@args)))))
 
 ;; @code end

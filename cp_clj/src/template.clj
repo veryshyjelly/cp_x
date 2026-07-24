@@ -1,14 +1,13 @@
-(require '[lib.cpio :refer :all])
+(require '[lib.cpio :refer [with-tokens]])
 
 ;; @code begin
 
 (defn solve [n m arr]
-  (println (+ n m (reduce + arr))))
+  (+ n m (reduce + arr)))
 
-(with-tokens [in ()]
-  (let [n (read in :int)
-        m (read in :int)
-        arr (read in [:ints n])]
-    (solve n m arr)))
+(with-tokens [n :int
+              _m :int
+              _arr [:ints n]]
+  solve)
 
 ;; @code end

@@ -8,18 +8,16 @@
    [clojure.string :as str]))
 ;; @head end
 
-(require '[lib.cpio :refer :all])
+(require '[lib.cpio :refer [with-tokens]])
 
 ;; @code begin
 
 (defn solve [s]
   (->> s
        sort
-       str/join
-       println))
+       str/join))
 
-(with-tokens [in ()]
-  (let [s (read in :str)]
-    (solve s)))
+(with-tokens [_s :str]
+  solve)
 
 ;; @code end
