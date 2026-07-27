@@ -8,7 +8,7 @@ use itertools::Itertools;
 
 sol! {
     fn solution(
-        [n, t, p]: [usize; 3],
+        [_n, t, p]: [usize; 3],
         a: [usize]
     ) -> usize {
         let grps = a

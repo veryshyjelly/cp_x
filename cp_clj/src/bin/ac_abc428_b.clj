@@ -18,9 +18,10 @@
                    (map str/join)
                    frequencies)
         max-freq (apply max (vals freqs))
-        most-freqs (keep (fn [[k v]] (when (= v max-freq) k)) freqs)]
+        most-freqs (keep (fn [[k v]]
+                           (when (= v max-freq) k)) freqs)]
     (lines (list max-freq
-                 (words most-freqs)))))
+                 (words (sort most-freqs))))))
 
 (with-tokens [_n :int _k :int
               _s :str]

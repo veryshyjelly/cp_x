@@ -8,7 +8,7 @@ use std::cmp::Reverse;
 
 sol! {
     fn solution(
-        n: usize,
+        _n: usize,
         (mut a): [usize]
     ) -> usize {
         let mut res = 0;

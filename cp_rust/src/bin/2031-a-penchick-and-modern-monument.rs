@@ -13,9 +13,8 @@ sol_n! {
     ) -> usize {
         n - h
               .into_iter()
-              .group_by(|&n| n)
-              .into_iter()
-              .map(|grp| grp.len())
+              .frequencies()
+              .into_values()
               .max()
               .unwrap()
     }

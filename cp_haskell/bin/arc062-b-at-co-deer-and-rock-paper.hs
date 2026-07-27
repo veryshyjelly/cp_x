@@ -1,5 +1,6 @@
 -- Created by Ayush Biswas at 2026/03/02 19:08
 -- https://atcoder.jp/contests/abc046/tasks/arc062_b
+-- D - AtCoDeer and Rock-Paper
 
 -- @code begin
 

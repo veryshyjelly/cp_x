@@ -13,9 +13,8 @@ sol! {
     ) -> usize {
         arrivals
             .into_iter()
-            .sorted()
-            .group_by(|&ai| ai)
-            .map(|g| g.len())
+            .frequencies()
+            .into_values()
             .max()
             .unwrap()
     }

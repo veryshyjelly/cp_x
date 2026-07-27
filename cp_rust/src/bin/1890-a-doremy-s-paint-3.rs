@@ -14,9 +14,8 @@ sol_n! {
     ) -> bool {
         let grps = a
             .into_iter()
-            .sorted()
-            .group_by(|&c| c)
-            .map(|g| g.len())
+            .frequencies()
+            .into_values()
             .collect::<Vec<_>>();
         grps.len() == 1 || (grps.len() == 2 && grps[0].abs_diff(grps[1]) < 2)
     }

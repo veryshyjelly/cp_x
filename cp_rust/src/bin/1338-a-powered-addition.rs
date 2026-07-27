@@ -7,7 +7,7 @@ use cpio::*;
 
 sol_n! {
     fn solution(
-        n: usize,
+        _n: usize,
         a: [isize]
     ) -> usize {
         let mut maxi = a[0];

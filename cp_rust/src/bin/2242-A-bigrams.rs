@@ -8,7 +8,7 @@ use itertools::Itertools;
 
 sol_n! {
     fn solution(
-        k: usize,
+        _k: usize,
         c: [usize]
     ) -> Bool {
         if c.iter().any(|&x| x >= 3) {

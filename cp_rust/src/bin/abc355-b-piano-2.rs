@@ -8,7 +8,7 @@ use itertools::Itertools;
 
 sol! {
     fn solution(
-        [n, m]: [usize; 2],
+        [_n, _m]: [usize; 2],
         a: [usize],
         b: [usize]
     ) -> Bool {

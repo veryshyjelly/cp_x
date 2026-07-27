@@ -21,8 +21,8 @@ sol! {
             }
         }
         r.into_iter()
-            .group_by(|&i| i)
-            .map(|g| g.len())
+            .frequencies()
+            .into_values()
             .max()
             .unwrap()
     }

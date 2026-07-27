@@ -9,7 +9,7 @@ use std::collections::HashMap;
 
 sol! {
     fn solution(
-        n: usize,
+        _n: usize,
         a: [usize]
     ) -> CPResult<usize, isize> {
         let mut labels = HashMap::new();

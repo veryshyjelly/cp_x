@@ -15,10 +15,7 @@ sol_n! {
     ) -> bool {
         let count: HashMap<char, usize> = s
             .chars()
-            .sorted()
-            .group_by(|&x| x)
-            .map(|g| (g[0], g.len()))
-            .collect();
+            .frequencies();
         count.values().filter(|&&v| v % 2 == 1).count() <= k + 1
     }
 }

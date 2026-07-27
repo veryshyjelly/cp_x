@@ -9,7 +9,7 @@ use std::collections::BinaryHeap;
 
 sol! {
     fn solution(
-        n: usize,
+        _n: usize,
         a: [isize]
     ) -> usize {
         let mut heap: BinaryHeap<Reverse<isize>> = BinaryHeap::new(); // min-heap

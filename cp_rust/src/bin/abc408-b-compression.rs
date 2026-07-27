@@ -8,7 +8,7 @@ use itertools::Itertools;
 
 sol! {
     fn solution(
-        n: usize,
+        _n: usize,
         a: [usize]
     ) -> Lines<Words<usize>> {
         let res = a.into_iter().sorted().unique().collect_vec();

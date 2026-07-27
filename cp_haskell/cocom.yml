@@ -2,7 +2,7 @@ version: 1.0
 
 author: Ayush Biswas
 
-editor: "code {{ .Filename }}"
+editor: "zed {{ .Filename }}"
 
 # How to generate the destination filename.
 filename:
@@ -17,11 +17,11 @@ filename:
 
     - site: cses.fi
       regex: "problemset/task/(\\d+)/?$"
-      template: './bin/cses-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.hs'
+      template: "./bin/cses-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.hs"
 
     - site: judge.u-aizu.ac.jp
       regex: "description\\.jsp\\?id=([A-Za-z0-9_]+)"
-      template: './bin/aoj-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.hs'
+      template: "./bin/aoj-{{ index .Captures 1 }}-{{ .Title | toKebabCase }}.hs"
 
     - site: open.kattis.com
       regex: "problems/([^/?]+)/?"
@@ -31,27 +31,26 @@ filename:
 template:
   source: ./Main.hs
   modifier: |
-    -- Created by {{ .Author }} at {{ .Time }} 
-    -- {{ .Url }} 
+    -- Created by {{ .Author }} at {{ .Time }}
+    -- {{ .Url }}
+    -- {{ .Title }}
     {{ .Code }}
 
 # Optional code post-processing.
 code:
   modifier: |
     {{ range .LibFiles }}
-    
+
     {{ .Content }}
 
     {{end}}
 
     {{ .Code }}
-    
 
 # Library injection.
 lib:
   regex: "import.*{{ .Name }}"
   include:
-    _: "./bin/lib/"
 
 # Compilation.
 compiler:

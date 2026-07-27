@@ -12,14 +12,12 @@ const MOD: usize = 10usize.pow(9) + 7;
 
 sol_n! {
     fn solution(
-        n: usize,
+        _n: usize,
         a: [i64]
     ) -> usize {
         let counts: HashMap<i64, usize> = a
             .into_iter()
-            .group_by(|&x| x)
-            .map(|g| (g[0], g.len()))
-            .collect();
+            .frequencies();
 
         let mut p = 1;
         for (_, c) in counts.iter() {

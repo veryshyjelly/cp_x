@@ -15,9 +15,8 @@ sol_n! {
     ) -> usize {
         let mut max_occ = a
             .into_iter()
-            .sorted()
-            .group_by(|&x| x)
-            .map(|g| g.len())
+            .frequencies()
+            .into_values()
             .max()
             .unwrap();
         let mut res = 0;

@@ -1,55 +1,62 @@
 -- Created by Ayush Biswas at 2026/03/11 13:11
 -- https://cses.fi/problemset/task/1743
+-- String Reorder
+--
 -- @code begin
-{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE BangPatterns #-}
+import qualified Data.ByteString.Char8 as BS
+import Data.Array.Unboxed
+import Data.Char (chr, ord)
+import Data.List (foldl')
 
-import Control.Monad (forM_)
-import Data.Array.IO
+type Counts = UArray Int Int
 
-type Arr = IOUArray Char Int
+freqOf :: BS.ByteString -> Counts
+freqOf s = accumArray (+) 0 (0, 25) [(ord c - ord 'A', 1) | c <- BS.unpack s]
 
--- try A..Z in order, pick first char that keeps state feasible
-pickBest :: Arr -> Maybe Char -> Int -> IO (Maybe Char)
-pickBest arr prev total = go ['A' .. 'Z']
+-- (maxVal, multiplicity of maxVal, second highest value)
+maxStats :: Counts -> (Int, Int, Int)
+maxStats counts = foldl' upd (0, 0, 0) (elems counts)
   where
-    limit = total `div` 2
-    go [] = return Nothing
-    go (c : cs) = do
-      f <- readArray arr c
-      if f == 0 || Just c == prev
-        then go cs
-        else do
-          -- only f[c] changes, check it and all others against limit
-          ok <- allUnder arr c (f - 1) limit
-          if ok then return (Just c) else go cs
+    upd (m, mult, second) v
+      | v > m      = (v, 1, m)
+      | v == m     = (m, mult + 1, second)
+      | v > second = (m, mult, v)
+      | otherwise  = (m, mult, second)
 
-allUnder :: Arr -> Char -> Int -> Int -> IO Bool
-allUnder arr changed newF limit
-  | newF > limit = return False
-  | otherwise = go ['A' .. 'Z']
+ceilDiv2 :: Int -> Int
+ceilDiv2 x = (x + 1) `div` 2
+
+-- try candidates 'A'..'Z' in order; pick the first that keeps the rest feasible
+nextChar :: Int -> Counts -> Int -> Maybe (Char, Counts, Int)
+nextChar remaining counts prev = go 0
   where
-    go [] = return True
-    go (c : cs) = do
-      f <- if c == changed then return newF else readArray arr c
-      if f > limit then return False else go cs
+    (m, mult, second) = maxStats counts
+    limitAfter = ceilDiv2 (remaining - 1)
 
-solve :: Arr -> Maybe Char -> String -> IO String
-solve arr prev acc = do
-  total <- sum <$> getElems arr
-  if total == 0
-    then return (reverse acc)
-    else
-      pickBest arr prev total >>= \case
-        Nothing -> return "-1"
-        Just c -> do
-          modifyArray arr c (subtract 1)
-          solve arr (Just c) (c : acc)
+    go 26 = Nothing
+    go i
+      | i == prev || counts ! i == 0 = go (i + 1)
+      | newMax <= limitAfter = Just (chr (i + ord 'A'), counts // [(i, counts ! i - 1)], i)
+      | otherwise = go (i + 1)
+      where
+        newMax
+          | counts ! i < m = m                        -- untouched, old max still stands
+          | mult > 1       = m                         -- another letter still holds the max
+          | otherwise      = max (m - 1) second         -- this was the unique max holder
+
+solve :: BS.ByteString -> BS.ByteString
+solve s
+  | maxFreq > ceilDiv2 n = BS.pack "-1"
+  | otherwise = fst (BS.unfoldrN n gen (counts0, -1 :: Int, n))
+  where
+    counts0 = freqOf s
+    n = BS.length s
+    (maxFreq, _, _) = maxStats counts0
+    gen (counts, prev, remaining) = do
+      (c, counts', best) <- nextChar remaining counts prev
+      return (c, (counts', best, remaining - 1))
 
 main :: IO ()
-main = do
-  s <- getLine
-  arr <- newArray ('A', 'Z') 0 :: IO (IOUArray Char Int)
-  forM_ s $ \c -> modifyArray arr c (+ 1)
-  solve arr Nothing [] >>= putStrLn
-
+main = BS.getLine >>= BS.putStrLn . solve
 -- @code end
