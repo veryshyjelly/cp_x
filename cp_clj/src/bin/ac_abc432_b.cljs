@@ -2,13 +2,9 @@
 ;; https://atcoder.jp/contests/adt_easy_20251224_1/tasks/abc432_b
 ;; C - Permute to Minimize
 ;;
-;; @head begin
 (ns bin.ac-abc432-b
-  (:require
-   [clojure.string :as str]))
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens]])
+  (:require [clojure.string :as str]
+            [lib.cpio :refer [with-tokens]]))
 
 ;; @code begin
 
@@ -26,7 +22,7 @@
         (assoc 0 v)
         str/join)))
 
-(with-tokens [_n :int]
+(with-tokens '[_n :int]
   solve)
 
 ;; @code end

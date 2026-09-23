@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_medium_20250723_3/tasks/abc409_b
 ;; D - Citation
 ;;
-;; @head begin
-(ns bin.ac-abc409-b)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens]])
+(ns bin.ac-abc409-b
+  (:require [lib.cpio :refer [with-tokens]]))
 
 ;; @code begin
 
@@ -15,7 +12,7 @@
             (max res (min (- n i) v))) 0
           (map vector (range) (sort arr))))
 
-(with-tokens [n :int
+(with-tokens '[n :int
               _arr [:ints n]]
   solve)
 

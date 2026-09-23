@@ -1,3 +1,37 @@
+(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))
+bb꞉user꞉> 
+(defn solve [^int n ^ints arr]
+  (frequencies arr))
+bb꞉bin.ac-abc398-c꞉> 
+(solve 9 '(2 9 9 7 9 2 4 5 8))
+bb꞉bin.ac-abc398-c꞉> 
+(defn solve [^int n ^ints arr]
+  (for [[k v] (frequencies arr)] v))
+bb꞉bin.ac-abc398-c꞉> 
+(solve 9 '(2 9 9 7 9 2 4 5 8))
+bb꞉bin.ac-abc398-c꞉> 
+(defn solve [^int n ^ints arr]
+  (for [[k v] (frequencies arr) :when (= v 1)] k))
+bb꞉bin.ac-abc398-c꞉> 
+(solve 9 '(2 9 9 7 9 2 4 5 8))
+bb꞉bin.ac-abc398-c꞉> 
+(defmacro with-input
+  "Bind tokens to names, evaluate body. No implicit output.
+   Use this for multi-test-cases or when you need custom output formatting."
+  [bindings & body]
+  {:pre [(even? (count bindings))]}
+  (let [r (gensym "reader")
+        pairs (partition 2 bindings)
+        lets (mapcat (fn [[sym spec]] [sym `(read-buf ~r ~spec)]) pairs)]
+    `(let [~r (token-reader)
+           ~@lets]
+       ~@body)))
+bb꞉lib.cpio꞉> 
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+; Unable to resolve symbol: lib.cpio/token-reader [at /Users/ayush.biswas/veryshyjelly/cp_x/cp_clj/src/lib/cpio.clj:292:1]
+bb꞉lib.cpio꞉> 
 (ns lib.cpio
   "Competitive Programming Input/Output DSL for Clojure.
 
@@ -24,8 +58,49 @@
   words lines yes-no case-str print-grid
 
   ## See also: with-input for multi-test-case and interactive problems.")
+bb꞉lib.cpio꞉> 
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+; Unable to resolve symbol: lib.cpio/token-reader [at /Users/ayush.biswas/veryshyjelly/cp_x/cp_clj/src/lib/cpio.clj:292:1]
+bb꞉lib.cpio꞉> 
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+; Unable to resolve symbol: lib.cpio/token-reader [at /Users/ayush.biswas/veryshyjelly/cp_x/cp_clj/src/lib/cpio.clj:292:1]
+bb꞉lib.cpio꞉> 
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+; Unable to resolve symbol: lib.cpio/token-reader [at /Users/ayush.biswas/veryshyjelly/cp_x/cp_clj/src/lib/cpio.clj:292:1]
+bb꞉lib.cpio꞉> 
+(ns lib.cpio
+  "Competitive Programming Input/Output DSL for Clojure.
 
-;; @code begin
+  ;; Simple single-case:
+  (with-tokens [n :int] solve)
+
+  ;; Complex multi-case or interactive:
+  (with-input [t :int]
+    (dotimes [i t]
+      (with-input [n :int arr [:ints n]]
+        (println (solve n arr)))))
+
+  ## Specs
+  :int :long :double :str :char :bigint
+  [:ints n] [:longs n] [:doubles n] [:strs n] [:chars n]
+  [:iarr n] [:larr n] ; primitive arrays for zero-boxing overhead
+  [:grid-ints n m] [:grid-longs n m] [:grid-doubles n m]
+  [:grid-chars n] [:grid-strs n]
+  [:pair t1 t2] [:tuple t1 t2 ...]
+  [:queries type->spec] or [:queries n type->spec]
+  [:edges n] [:wedges n]
+
+  ## Output Helpers
+  words lines yes-no case-str print-grid
+
+  ## See also: with-input for multi-test-case and interactive problems.")
+bb꞉lib.cpio꞉> 
 
 (require '[clojure.string :as str])
 (import [java.io BufferedReader InputStreamReader]
@@ -288,26 +363,59 @@
     `(let [~r (token-reader)
            ~@lets]
        ~@body)))
-
-(defmacro with-tokens
-  "Bind tokens, call f with bound args, println the result.
-   Shortcut for simple single-output problems."
-  [bindings f]
-  (let [pairs (partition 2 bindings)
-        args (map first pairs)]
-    `(with-input ~bindings
-       (println (~f ~@args)))))
-
-(defmacro with-test-cases
-  "Read count, then repeat body count times.
-   Shortcut for standard multi-test-case problems."
-  [count-binding bindings f]
-  (let [t (gensym "t")
+bb꞉lib.cpio꞉> 
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+; Evaluation was interrupted
+bb꞉lib.cpio꞉> 
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+(defmacro with-input
+  "Bind tokens to names, evaluate body. No implicit output.
+   Use this for multi-test-cases or when you need custom output formatting."
+  [bindings & body]
+  {:pre [(even? (count bindings))]}
+  (let [r (gensym "reader")
         pairs (partition 2 bindings)
-        args (map first pairs)]
-    `(with-input [~count-binding :int]
-       (dotimes [~t ~count-binding]
-         (with-input ~bindings
-           (println (~f ~@args)))))))
-
-;; @code end
+        lets (mapcat (fn [[sym spec]] [sym `(read-buf ~r ~spec)]) pairs)]
+    `(let [~r (token-reader)
+           ~@lets]
+       ~@body)))
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+macroexpand-1
+macroexpand-1
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+(macroexpand-1 (with-input [n :int
+              _arr [:ints n]]
+  n))
+(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))
+nbb꞉user꞉> 
+(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))
+nbb꞉user꞉> 
+(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))
+nbb꞉user꞉> 
+(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))
+nbb꞉user꞉> 
+(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))
+nbb꞉user꞉> 

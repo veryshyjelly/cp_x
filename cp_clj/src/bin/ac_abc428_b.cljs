@@ -2,13 +2,9 @@
 ;; https://atcoder.jp/contests/adt_all_20260623_2/tasks/abc428_b
 ;; D - Most Frequent Substrings
 ;;
-;; @head begin
 (ns bin.ac-abc428-b
-  (:require
-   [clojure.string :as str]))
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens lines words]])
+  (:require [lib.cpio :refer [with-tokens lines words]]
+            [clojure.string :as str]))
 
 ;; @code begin
 
@@ -23,7 +19,7 @@
     (lines (list max-freq
                  (words (sort most-freqs))))))
 
-(with-tokens [_n :int _k :int
+(with-tokens '[_n :int _k :int
               _s :str]
   solve)
 

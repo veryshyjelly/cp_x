@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_medium_20250812_3/tasks/abc408_b
 ;; C - Compression
 ;;
-;; @head begin
-(ns bin.ac-abc408-b)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens lines words]])
+(ns bin.ac-abc408-b
+  (:require [lib.cpio :refer [with-tokens lines words]]))
 
 ;; @code begin
 
@@ -14,7 +11,7 @@
   (let [res (apply sorted-set arr)]
     (lines [(count res) (words res)])))
 
-(with-tokens [n :int
+(with-tokens '[n :int
               _arr [:ints n]]
   solve)
 

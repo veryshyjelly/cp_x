@@ -2,13 +2,9 @@
 ;; https://atcoder.jp/contests/adt_easy_20260107_3/tasks/abc432_a
 ;; A - Permute to Maximize
 ;;
-;; @head begin
 (ns bin.ac-abc432-a
-  (:require
-   [clojure.string :as str]))
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens]])
+  (:require [lib.cpio :refer [with-tokens]]
+            [clojure.string :as str]))
 
 ;; @code begin
 
@@ -18,7 +14,7 @@
        reverse
        str/join))
 
-(with-tokens [_digs [:ints 3]]
+(with-tokens '[_digs [:ints 3]]
   solve)
 
 ;; @code end

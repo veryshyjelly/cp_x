@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_easy_20260617_1/tasks/abc434_b
 ;; D - Bird Watching
 ;;
-;; @head begin
-(ns bin.ac-abc434-b)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens lines]])
+(ns bin.ac-abc434-b
+  (:require [lib.cpio :refer [with-tokens lines]]))
 
 ;; @code begin
 
@@ -20,7 +17,7 @@
     (lines (for [mi (range 1 (inc m))]
              (double (/ (total-weights mi) (counts mi)))))))
 
-(with-tokens [n :int
+(with-tokens '[n :int
               _m :int
               _birds [:grid-ints n 2]]
   solve)

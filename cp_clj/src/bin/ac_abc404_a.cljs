@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_easy_20260625_1/tasks/abc404_a
 ;; B - Not Found
 ;;
-;; @head begin
-(ns bin.ac-abc404-a)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens]])
+(ns bin.ac-abc404-a
+  (:require [lib.cpio :refer [with-tokens]]))
 
 ;; @code begin
 
@@ -16,7 +13,7 @@
          (map char)
          (some #(when-not (s %) %)))))
 
-(with-tokens [_s :str]
+(with-tokens '[_s :str]
   solve)
 
 ;; @code end

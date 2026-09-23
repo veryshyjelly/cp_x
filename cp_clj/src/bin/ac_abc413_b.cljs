@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_medium_20250909_3/tasks/abc413_b
 ;; D - cat 2
 ;;
-;; @head begin
-(ns bin.ac-abc413-b)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens]])
+(ns bin.ac-abc413-b
+  (:require [lib.cpio :refer [with-tokens]]))
 
 ;; @code begin
 
@@ -18,7 +15,7 @@
          set
          count))
 
-(with-tokens [n :int
+(with-tokens '[n :int
               _strs [:strs n]]
   solve)
 

@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_all_20260224_1/tasks/abc440_b
 ;; D - Trifecta
 ;;
-;; @head begin
-(ns bin.ac-abc440-b)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens words]])
+(ns bin.ac-abc440-b
+  (:require [lib.cpio :refer [with-tokens words]]))
 
 ;; @code begin
 
@@ -18,7 +15,7 @@
        (take 3)
        words))
 
-(with-tokens [n :int
+(with-tokens '[n :int
               _horses [:ints n]]
   solve)
 

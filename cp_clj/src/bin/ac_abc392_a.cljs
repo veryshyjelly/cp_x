@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_easy_20260204_2/tasks/abc392_a
 ;; A - Shuffled Equation
 ;;
-;; @head begin
-(ns bin.ac-abc392-a)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens yes-no]])
+(ns bin.ac-abc392-a
+  (:require [lib.cpio :refer [with-tokens yes-no]]))
 
 ;; @code begin
 
@@ -14,7 +11,7 @@
   (let [[a b c] (sort as)]
     (yes-no (= c (* a b)))))
 
-(with-tokens [_as [:ints 3]]
+(with-tokens '[_as [:ints 3]]
   solve)
 
 ;; @code end

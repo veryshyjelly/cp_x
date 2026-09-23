@@ -2,22 +2,17 @@
 ;; https://atcoder.jp/contests/adt_all_20260629_2/tasks/abc242_b
 ;; D - Minimize Ordering
 ;;
-;; @head begin
 (ns bin.ac-abc242-b
-  (:require
-   [clojure.string :as str]))
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens]])
+  (:require [lib.cpio :refer [with-tokens]]))
 
 ;; @code begin
+(require '[clojure.string :as str])
 
 (defn solve [s]
   (->> s
        sort
        str/join))
 
-(with-tokens [_s :str]
-  solve)
+(with-tokens '[_s :str] solve)
 
 ;; @code end

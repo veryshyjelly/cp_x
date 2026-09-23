@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_easy_20260625_1/tasks/abc287_b
 ;; C - Postal Card
 ;;
-;; @head begin
-(ns bin.ac-abc287-b)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens]])
+(ns bin.ac-abc287-b
+  (:require [lib.cpio :refer [with-tokens]]))
 
 ;; @code begin
 
@@ -14,7 +11,7 @@
   (let [t (set t)]
     (count (keep #(t (subs % 3)) s))))
 
-(with-tokens [n :int
+(with-tokens '[n :int
               m :int
               _s [:strs n]
               _t [:strs m]]

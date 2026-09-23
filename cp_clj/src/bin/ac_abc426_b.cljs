@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_easy_20260618_1/tasks/abc426_b
 ;; D - The Odd One Out
 ;;
-;; @head begin
-(ns bin.ac-abc426-b)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens]])
+(ns bin.ac-abc426-b
+  (:require [lib.cpio :refer [with-tokens]]))
 
 ;; @code begin
 
@@ -15,7 +12,7 @@
        frequencies
        (some (fn [[k v]] (when (= v 1) k)))))
 
-(with-tokens [_s :str]
+(with-tokens '[_s :str]
   solve)
 
 ;; @code end

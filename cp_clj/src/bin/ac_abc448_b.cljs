@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_easy_20260407_2/tasks/abc448_b
 ;; C - Pepper Addiction
 ;;
-;; @head begin
-(ns bin.ac-abc448-b)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens]])
+(ns bin.ac-abc448-b
+  (:require [lib.cpio :refer [with-tokens]]))
 
 ;; @code begin
 
@@ -18,7 +15,7 @@
            (for [mi (range m)]
              (min (stocks mi) (get wants (inc mi) 0))))))
 
-(with-tokens [n :int m :int
+(with-tokens '[n :int m :int
               _stocks [:ints m]
               _wants [:grid-ints n 2]]
   solve)

@@ -2,11 +2,8 @@
 ;; https://atcoder.jp/contests/adt_easy_20260212_1/tasks/abc439_b
 ;; C - Happy Number
 ;;
-;; @head begin
-(ns bin.ac-abc439-b)
-;; @head end
-
-(require '[lib.cpio :refer [with-tokens yes-no]])
+(ns bin.ac-abc439-b
+  (:require [lib.cpio :refer [with-tokens yes-no]]))
 
 ;; @code begin
 
@@ -26,7 +23,7 @@
 
 (def solve (comp yes-no happy-number?))
 
-(with-tokens [_n :int]
+(with-tokens '[_n :int]
   solve)
 
 ;; @code end

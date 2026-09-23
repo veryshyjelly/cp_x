@@ -1,8 +1,0 @@
-{:paths ["src"]
- :deps
- {org.clojure/clojure {:mvn/version "1.12.2"}}
- :aliases
- {:ac
-  {:extra-deps
-   {local/ac-library
-    {:local/root "src/lib/ac_library.jar"}}}}}
