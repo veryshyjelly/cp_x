@@ -14,7 +14,7 @@
        reverse
        str/join))
 
-(with-tokens '[_digs [:ints 3]]
+(with-tokens '[digs [:ints 3]]
   solve)
 
 ;; @code end

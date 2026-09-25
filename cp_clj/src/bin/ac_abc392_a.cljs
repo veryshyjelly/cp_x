@@ -11,7 +11,7 @@
   (let [[a b c] (sort as)]
     (yes-no (= c (* a b)))))
 
-(with-tokens '[_as [:ints 3]]
+(with-tokens '[as [:ints 3]]
   solve)
 
 ;; @code end

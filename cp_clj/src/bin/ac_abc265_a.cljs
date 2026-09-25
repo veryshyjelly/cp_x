@@ -13,7 +13,7 @@
                (* (quot n 3) y)
                (* (rem n 3) x))))
 
-(with-tokens '[_x :int _y :int _n :int]
+(with-tokens '[x :int y :int n :int]
   solve)
 
 ;; @code end

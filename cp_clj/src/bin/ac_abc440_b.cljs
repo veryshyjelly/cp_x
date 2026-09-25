@@ -16,7 +16,7 @@
        words))
 
 (with-tokens '[n :int
-              _horses [:ints n]]
+               horses [:ints n]]
   solve)
 
 ;; @code end

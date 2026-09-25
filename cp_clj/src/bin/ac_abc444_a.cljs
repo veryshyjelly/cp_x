@@ -14,7 +14,7 @@
        (= 1)
        yes-no))
 
-(with-tokens '[_n :str]
+(with-tokens '[n :str]
   solve)
 
 ;; @code end

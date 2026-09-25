@@ -13,6 +13,6 @@
        sort
        str/join))
 
-(with-tokens '[_s :str] solve)
+(with-tokens '[s :str] solve)
 
 ;; @code end

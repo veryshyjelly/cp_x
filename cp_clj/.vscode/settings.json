@@ -1,0 +1,17 @@
+{
+    "editor.fontFamily": "'Brock Script'",
+    "editor.lineHeight": 1.25,
+    "editor.fontSize": 25,
+    "terminal.integrated.fontFamily": "JetBrains Mono",
+    "terminal.integrated.letterSpacing": 0,
+    // "editor.letterSpacing": 2,
+    "editor.lineNumbers": "off",
+    "editor.glyphMargin": false,
+    "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
+    "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons",
+    "calva.paredit.defaultKeyMap": "strict",
+    "calva.keybindingsEnabled": true,
+    "chat.disableAIFeatures": true,
+    "editor.minimap.enabled": false,
+    "editor.fontLigatures": true,
+}

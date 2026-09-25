@@ -10,17 +10,15 @@
 
 (defn solve [_q queries]
   (let [q (ds/MinPriorityQueue.)]
-    (->> queries
-         (reduce (fn [res query]
-                     (case (first query)
-                       :push (do (.add q (second query)) res)
-                       :pop (conj res (.pop q))))
-                   [])
-         lines)))
+    (reduce (fn [res query]
+              (case (first query)
+                :push (do (.add q (second query)) res)
+                :pop (conj res (.poll q))))
+            [] queries)))
 
 (with-tokens '[q :int
-              _queries [:queries q {1 [:push :int]
+               queries [:queries q {1 [:push :int]
                                     2 [:pop]}]]
-  solve)
+  (comp lines solve))
 
 ;; @code end

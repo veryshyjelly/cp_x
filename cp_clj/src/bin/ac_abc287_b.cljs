@@ -12,9 +12,9 @@
     (count (keep #(t (subs % 3)) s))))
 
 (with-tokens '[n :int
-              m :int
-              _s [:strs n]
-              _t [:strs m]]
+               m :int
+               s [:strs n]
+               t [:strs m]]
   solve)
 
 ;; @code end

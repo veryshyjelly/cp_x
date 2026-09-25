@@ -13,7 +13,7 @@
           (map vector (range) (sort arr))))
 
 (with-tokens '[n :int
-              _arr [:ints n]]
+               arr [:ints n]]
   solve)
 
 ;; @code end

@@ -16,7 +16,7 @@
     (if (= res -1) -1 (inc res))))
 
 (with-tokens '[n :int
-              _arr [:ints n]]
+               arr [:ints n]]
   solve)
 
 ;; @code end

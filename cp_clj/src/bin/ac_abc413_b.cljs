@@ -16,7 +16,7 @@
          count))
 
 (with-tokens '[n :int
-              _strs [:strs n]]
+               strs [:strs n]]
   solve)
 
 ;; @code end

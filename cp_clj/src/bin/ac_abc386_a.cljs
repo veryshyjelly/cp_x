@@ -14,6 +14,6 @@
        (= 2)
        yes-no))
 
-(with-tokens '[_cards [:ints 4]] solve)
+(with-tokens '[cards [:ints 4]] solve)
 
 ;; @code end

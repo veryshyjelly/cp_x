@@ -9,10 +9,12 @@
 
 (defn solve [_n arr]
   (let [res (apply sorted-set arr)]
-    (lines [(count res) (words res)])))
+    (lines
+     [(count res)
+      (words res)])))
 
 (with-tokens '[n :int
-              _arr [:ints n]]
+               arr [:ints n]]
   solve)
 
 ;; @code end

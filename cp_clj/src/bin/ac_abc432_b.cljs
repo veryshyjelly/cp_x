@@ -3,8 +3,8 @@
 ;; C - Permute to Minimize
 ;;
 (ns bin.ac-abc432-b
-  (:require [clojure.string :as str]
-            [lib.cpio :refer [with-tokens]]))
+  (:require [lib.cpio :refer [with-tokens]]
+            [clojure.string :as str]))
 
 ;; @code begin
 
@@ -22,7 +22,7 @@
         (assoc 0 v)
         str/join)))
 
-(with-tokens '[_n :int]
+(with-tokens '[n :int]
   solve)
 
 ;; @code end

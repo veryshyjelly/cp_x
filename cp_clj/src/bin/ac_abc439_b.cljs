@@ -23,7 +23,7 @@
 
 (def solve (comp yes-no happy-number?))
 
-(with-tokens '[_n :int]
+(with-tokens '[n :int]
   solve)
 
 ;; @code end

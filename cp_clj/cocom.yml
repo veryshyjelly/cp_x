@@ -58,7 +58,7 @@ code:
 
 # Library injection.
 lib:
-  regex: "(require.*{{.Name}}.*)"
+  regex: "(:require.*{{.Name}}.*)"
   include:
     _: "./src/lib/"
 

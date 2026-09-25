@@ -16,8 +16,8 @@
              (min (stocks mi) (get wants (inc mi) 0))))))
 
 (with-tokens '[n :int m :int
-              _stocks [:ints m]
-              _wants [:grid-ints n 2]]
+               stocks [:ints m]
+               wants [:grid-ints n 2]]
   solve)
 
 ;; @code end

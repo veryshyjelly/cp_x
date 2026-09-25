@@ -12,7 +12,7 @@
        frequencies
        (some (fn [[k v]] (when (= v 1) k)))))
 
-(with-tokens '[_s :str]
+(with-tokens '[s :str]
   solve)
 
 ;; @code end

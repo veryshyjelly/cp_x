@@ -15,9 +15,9 @@
        (#(/ % (* 6 6 6)))
        double))
 
-(with-tokens '[_a [:ints 6]
-              _b [:ints 6]
-              _c [:ints 6]]
+(with-tokens '[a [:ints 6]
+               b [:ints 6]
+               c [:ints 6]]
   solve)
 
 ;; @code end

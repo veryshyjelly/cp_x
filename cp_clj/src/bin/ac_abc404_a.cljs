@@ -13,7 +13,7 @@
          (map char)
          (some #(when-not (s %) %)))))
 
-(with-tokens '[_s :str]
+(with-tokens '[s :str]
   solve)
 
 ;; @code end

@@ -14,12 +14,12 @@
         counts (->> birds
                     (map first)
                     frequencies)]
-    (lines (for [mi (range 1 (inc m))]
-             (double (/ (total-weights mi) (counts mi)))))))
+   (for [mi (range 1 (inc m))]
+             (double (/ (total-weights mi) (counts mi))))))
 
 (with-tokens '[n :int
-              _m :int
-              _birds [:grid-ints n 2]]
-  solve)
+               m :int
+               birds [:grid-ints n 2]]
+  (comp lines solve))
 
 ;; @code end

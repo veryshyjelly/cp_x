@@ -11,7 +11,7 @@
   (count (set arr)))
 
 (with-tokens '[n :int
-              _arr [:ints n]]
+              arr [:ints n]]
   solve)
 
 ;; @code end
