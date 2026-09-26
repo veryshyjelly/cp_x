@@ -26,7 +26,7 @@
   [:pair t1 t2] [:tuple t1 t2 ...]
   [:queries type->spec] or [:queries n type->spec]
   [:edges n] [:wedges n]
-
+  [:many n spec] ; n repeats of ANY spec, e.g. [:many n [:tuple :str :int]]
   ## Output Helpers
   words lines yes-no case-str print-grid
 
@@ -201,6 +201,7 @@
         :grid-strs    (read-vec r :str (nth spec 1))
         :pair         (mapv #(read-buf r %) (rest spec))
         :tuple        (mapv #(read-buf r %) (rest spec))
+        :many         (read-vec r (nth spec 2) (nth spec 1))
         :queries      (read-queries r spec)
         :edges        (read-edges r (nth spec 1))
         :wedges       (read-wedges r (nth spec 1))

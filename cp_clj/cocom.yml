@@ -66,7 +66,7 @@ lib:
 compiler:
   name: Clojurescript
   source: main.cljs
-  run: nbb ./main.cljs
+  run: bunx --bun nbb ./main.cljs
 
 # Behaviour
 create_file: true
