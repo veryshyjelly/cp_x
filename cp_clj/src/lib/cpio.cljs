@@ -316,14 +316,30 @@
 ;; 4. SYNTACTIC SUGAR / DSL MACROS
 ;; ============================================================
 
-(defn resolve-spec [spec values]
-  (if (vector? spec)
-    (mapv #(if (symbol? %)
-             (get values %)
-             %)
-          spec)
-    spec))
+(def ^:private spec-ops
+  {'+ +, '- -, '* *, 'quot quot, 'rem rem, 'mod mod,
+   'inc inc, 'dec dec, 'max max, 'min min})
 
+(defn resolve-spec
+  "Resolves names and simple arithmetic in a spec against already-read values.
+   e.g. [:ints (* 5 n)] with {n 3} => [:ints 15]"
+  [form values]
+  (cond
+    (symbol? form)
+    (if (contains? values form)
+      (get values form)
+      (throw (ex-info (str "Unbound name in spec: " form) {:name form})))
+
+    (seq? form)
+    (let [[op & args] form
+          f (get spec-ops op)]
+      (when-not f
+        (throw (ex-info (str "Unsupported operator in spec: " op) {:op op})))
+      (apply f (map #(resolve-spec % values) args)))
+
+    (vector? form) (mapv #(resolve-spec % values) form)
+
+    :else form))
 (defn with-input
   "Bind tokens to names, evaluate body. No implicit output.
      Use this for multi-test-cases or when you need custom output formatting."

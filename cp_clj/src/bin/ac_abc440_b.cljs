@@ -8,8 +8,7 @@
 ;; @code begin
 
 (defn solve [_n horses]
-  (->> horses
-       (map-indexed #(vector %2 %1))
+  (->> (map vector horses (range))
        sort
        (map (comp inc second))
        (take 3)

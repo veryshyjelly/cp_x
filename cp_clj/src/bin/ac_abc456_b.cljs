@@ -10,8 +10,8 @@
 (defn solve [a b c]
   (->> (for [ai a bi b ci c
              :let [turn (sort [ai bi ci])]
-             :when (= turn [4 5 6])] 1)
-       (apply +)
+             :when (= turn [4 5 6])] nil)
+       count
        (#(/ % (* 6 6 6)))
        double))
 

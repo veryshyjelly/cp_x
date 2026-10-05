@@ -9,9 +9,9 @@
 
 (defn solve [as]
   (let [[a b c] (sort as)]
-    (yes-no (= c (* a b)))))
+     (= c (* a b))))
 
 (with-tokens '[as [:ints 3]]
-  solve)
+  (comp yes-no solve))
 
 ;; @code end
