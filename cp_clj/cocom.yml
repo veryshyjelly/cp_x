@@ -47,6 +47,7 @@ code:
             ["ac-library-js" :as ac]
             ["data-structure-typed" :as ds]
             [clojure.string :as str]
+            [clojure.set :as set]
     ))
     {{.Header}}
     {{ range .LibFiles }}

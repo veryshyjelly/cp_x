@@ -1,10 +1,7 @@
 {
-    "editor.fontFamily": "'Blackout OldSkull', 'JetBrains Mono'",
-    "editor.lineHeight": 1.2,
-    "editor.fontSize": 25,
+    "editor.fontFamily": "'Sans Forgetica', 'JetBrains Mono'",
+    "editor.fontSize": 22,
     "terminal.integrated.fontFamily": "JetBrains Mono",
-    "terminal.integrated.letterSpacing": 0,
-    "editor.letterSpacing": 1,
     "editor.lineNumbers": "off",
     "editor.glyphMargin": false,
     "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",

@@ -51,48 +51,52 @@
 ;; 1. TOKEN READER — default, fastest, for 95% of problems
 ;; ============================================================
 
-(defrecord TokenReader [tokens pos-arr ntokens])
+(defn slurp-stdin [] (.readFileSync fs 0 "utf-8"))   
+(defn slurp-stdin-buf [] (.readFileSync fs 0))   ; Buffer, no utf8 decode
 
-(def ^:private ws-pattern #"\s+")
-
-(defn slurp-stdin
-  "Synchronously reads all of stdin. Node.js only."
-  []
-  (.readFileSync fs 0 "utf8"))
+(defrecord TokenReader [buf pos-arr len])
 
 (defn token-reader
   "Creates a fast token reader from stdin or a string.
    Reads everything upfront and splits on whitespace — analogous to
    Python's sys.stdin.read().split(). This is the CP gold standard."
-  ([]
-   (token-reader (slurp-stdin)))
+  ([] (token-reader (slurp-stdin-buf)))
   ([s]
-   (let [s (str/trim s)
-         toks (if (str/blank? s)
-                (array)
-                (.split s ws-pattern))]
-     (->TokenReader toks (js/Int32Array. 1) (alength toks)))))
+   (let [b (if (string? s) (js/Buffer.from s "utf8") s)]
+     (->TokenReader b (js/Int32Array. 1) (.-length b)))))
+
+(defn- skip-ws [buf i n]
+  (loop [i i]
+    (if (and (< i n) (<= (aget buf i) 32)) (recur (inc i)) i)))
 
 (defn has-more?
   "Returns true if there are unread tokens (useful for read-until-EOF)."
   [r]
-  (< (aget (.-pos-arr r) 0) (.-ntokens r)))
+  (let [n (.-len r)]
+    (< (skip-ws (.-buf r) (aget (.-pos-arr r) 0) n) n)))
 
-(defn remaining
-  "Number of tokens yet to be consumed."
+(defn- next-int!
+  "Parse an integer straight from bytes. Exact up to 2^53."
   [r]
-  (- (.-ntokens r) (aget (.-pos-arr r) 0)))
+  (let [buf (.-buf r) pa (.-pos-arr r) n (.-len r)
+        i (skip-ws buf (aget pa 0) n)]
+    (when (>= i n) (throw (ex-info "Unexpected EOF while reading token" {})))
+    (let [neg? (== (aget buf i) 45)
+          i (if neg? (inc i) i)]
+      (loop [i i acc 0]
+        (let [c (if (< i n) (aget buf i) 32)]
+          (if (and (>= c 48) (<= c 57))
+            (recur (inc i) (+ (* acc 10) (- c 48)))
+            (do (aset pa 0 i)
+                (if neg? (- 0 acc) acc))))))))
 
-(defn- next-tok!
-  "Reads next token or throws on EOF."
-  [r]
-  (let [pos-arr (.-pos-arr r)
-        i (aget pos-arr 0)]
-    (if (< i (.-ntokens r))
-      (do (aset pos-arr 0 (inc i))
-          (aget (.-tokens r) i))
-      (throw (ex-info "Unexpected EOF while reading token"
-                      {:consumed i :total (.-ntokens r)})))))
+(defn- next-str! [r]
+  (let [buf (.-buf r) pa (.-pos-arr r) n (.-len r)
+        s (skip-ws buf (aget pa 0) n)]
+    (when (>= s n) (throw (ex-info "Unexpected EOF while reading token" {})))
+    (let [e (loop [i s] (if (and (< i n) (> (aget buf i) 32)) (recur (inc i)) i))]
+      (aset pa 0 e)
+      (.toString buf "utf8" s e))))
 
 ;; -----------------------------------------------------------
 ;; Core read dispatcher
@@ -100,30 +104,44 @@
 
 (declare read-buf)
 
+(defn- read-ints [r n]
+  (loop [i 0 acc (transient [])]
+    (if (= i n) (persistent! acc) (recur (inc i) (conj! acc (next-int! r))))))
+
+(defn- read-int-arr [r n]
+  (let [arr (js/Int32Array. n)]
+    (dotimes [i n] (aset arr i (next-int! r)))
+    arr))
+
+(defn- read-long-arr [r n]
+  (let [arr (js/Float64Array. n)]
+    (dotimes [i n] (aset arr i (next-int! r)))
+    arr))
+
+(defn- read-edges [r n]
+  (loop [i 0 acc (transient [])]
+    (if (= i n)
+      (persistent! acc)
+      (let [a (next-int! r) b (next-int! r)]
+        (recur (inc i) (conj! acc [a b]))))))
+
+(defn- read-wedges [r n]
+  (loop [i 0 acc (transient [])]
+    (if (= i n)
+      (persistent! acc)
+      (let [a (next-int! r) b (next-int! r) w (next-int! r)]
+        (recur (inc i) (conj! acc [a b w]))))))
+
+(defn- read-grid-ints [r n m]
+  (loop [i 0 acc (transient [])]
+    (if (= i n) (persistent! acc) (recur (inc i) (conj! acc (read-ints r m))))))
+
 (defn- read-vec
   [r spec n]
   (loop [i 0 acc (transient [])]
     (if (= i n)
       (persistent! acc)
       (recur (inc i) (conj! acc (read-buf r spec))))))
-
-(defn- read-int-arr
-  [r n]
-  (let [arr (js/Int32Array. n)]
-    (loop [i 0]
-      (when (< i n)
-        (aset arr i (read-buf r :int))
-        (recur (inc i))))
-    arr))
-
-(defn- read-long-arr
-  [r n]
-  (let [arr (js/Float64Array. n)]
-    (loop [i 0]
-      (when (< i n)
-        (aset arr i (read-buf r :long))
-        (recur (inc i))))
-    arr))
 
 (defn- read-grid
   [r spec n m]
@@ -149,19 +167,6 @@
           (recur (inc i)
                  (conj! acc (vec (cons tag (map #(read-buf r %) specs))))))))))
 
-(defn- read-edges
-  [r n]
-  (loop [i 0 acc (transient [])]
-    (if (= i n)
-      (persistent! acc)
-      (recur (inc i) (conj! acc [(read-buf r :int) (read-buf r :int)])))))
-
-(defn- read-wedges
-  [r n]
-  (loop [i 0 acc (transient [])]
-    (if (= i n)
-      (persistent! acc)
-      (recur (inc i) (conj! acc [(read-buf r :int) (read-buf r :int) (read-buf r :long)])))))
 
 (defn read-buf
   "Reads from a TokenReader based on a spec.
@@ -173,24 +178,23 @@
   (cond
     (keyword? spec)
     (case spec
-      :int    (js/parseInt (next-tok! r) 10)
-      :long   (js/parseInt (next-tok! r) 10)
-      :double (js/parseFloat (next-tok! r))
-      :str    (next-tok! r)
-      :char   (first (next-tok! r))
-      :bigint (js/BigInt (next-tok! r)))
+      :int    (next-int! r)
+      :double (js/parseFloat (next-str! r))
+      :str    (next-str! r)
+      :char   (first (next-str! r))
+      :bigint (js/BigInt (next-str! r)))
 
     (vector? spec)
     (let [tag (first spec)]
       (case tag
-        :ints         (read-vec r :int (nth spec 1))
-        :longs        (read-vec r :long (nth spec 1))
+        :ints         (read-ints r (nth spec 1))
         :doubles      (read-vec r :double (nth spec 1))
+        :bigints (read-vec r :bigint (nth spec 1))
         :strs         (read-vec r :str (nth spec 1))
         :chars        (read-vec r :char (nth spec 1))
         :iarr         (read-int-arr r (nth spec 1))
         :larr         (read-long-arr r (nth spec 1))
-        :grid-ints    (read-grid r :int (nth spec 1) (nth spec 2))
+        :grid-ints    (read-grid-ints r (nth spec 1) (nth spec 2))
         :grid-longs   (read-grid r :long (nth spec 1) (nth spec 2))
         :grid-doubles (read-grid r :double (nth spec 1) (nth spec 2))
         :grid-chars   (let [n (nth spec 1)]
@@ -216,18 +220,9 @@
 (defn read-all-ints
   "Read all remaining tokens as an Int32Array."
   [r]
-  (let [tokens (.-tokens r)
-        n (.-ntokens r)
-        pos-arr (.-pos-arr r)
-        start (aget pos-arr 0)
-        cnt (- n start)]
-    (aset pos-arr 0 n)
-    (let [arr (js/Int32Array. cnt)]
-      (loop [i 0]
-        (when (< i cnt)
-          (aset arr i (js/parseInt (aget tokens (+ start i)) 10))
-          (recur (inc i))))
-      arr)))
+  (let [acc (array)]
+    (while (has-more? r) (.push acc (next-int! r)))
+    (js/Int32Array.from acc)))
 
 (defn read-all-longs
   "Read all remaining tokens as a Float64Array.
@@ -299,18 +294,10 @@
 ;; 3. OUTPUT UTILITIES
 ;; ============================================================
 
-(defn words "Join coll with spaces." [coll] (str/join " " coll))
-(defn lines "Join coll with newlines." [coll] (str/join "\n" coll))
+(defn words [coll] (.join (to-array coll) " "))
+(defn lines [coll] (.join (to-array coll) "\n"))
+(defn- write! [s] (.write js/process.stdout s))
 (defn yes-no "Return \"Yes\" if truthy, \"No\" otherwise." [x] (if x "Yes" "No"))
-
-(defn print-grid
-  "Print a 2D char grid, one row per line, no spaces."
-  [grid]
-  (doseq [row grid]
-    (println (apply str row))))
-
-(defn out "Print without newline. For interactive output." [x] (print x))
-(defn outln "Print with newline. For interactive output." [x] (println x))
 
 ;; ============================================================
 ;; 4. SYNTACTIC SUGAR / DSL MACROS
@@ -340,37 +327,26 @@
     (vector? form) (mapv #(resolve-spec % values) form)
 
     :else form))
-(defn with-input
-  "Bind tokens to names, evaluate body. No implicit output.
-     Use this for multi-test-cases or when you need custom output formatting."
-  [bindings f]
-  (let [r (token-reader)]
-    (loop [xs (partition 2 bindings)
-           values {}
-           args []]
-      (if (empty? xs)
-        (apply f args)
-        (let [[name spec] (first xs)
-              spec (resolve-spec spec values)
-              value (read-buf r spec)]
-          (recur (rest xs)
-                 (assoc values name value)
-                 (conj args value)))))))
 
+(defn- run-bindings [r bindings f]
+  (loop [xs (partition 2 bindings) values {} args []]
+    (if (empty? xs)
+      (apply f args)
+      (let [[name spec] (first xs)
+            value (read-buf r (resolve-spec spec values))]
+        (recur (rest xs) (assoc values name value) (conj args value))))))
 
-(defn with-tokens
-  "Bind tokens, call f with bound args, println the result.
-   Shortcut for simple single-output problems."
-  [bindings f]
-  (let [res (with-input bindings f)]
-       (println res)))
+(defn with-input [bindings f]
+  (run-bindings (token-reader) bindings f))
 
-(defn with-test-cases
-  "Read count, then repeat body count times.
-   Shortcut for standard multi-test-case problems."
-  [bindings f]
-  (with-input '[t :int]
-    #(dotimes [_ %]
-       (println (with-input bindings f)))))
+(defn with-tokens [bindings f]
+  (write! (str (with-input bindings f) "\n")))
+
+(defn with-test-cases [bindings f]
+  (let [r (token-reader)
+        t (read-buf r :int)
+        out (array)]
+    (dotimes [_ t] (.push out (str (run-bindings r bindings f))))
+    (write! (str (.join out "\n") "\n"))))
 
 ;; @code end

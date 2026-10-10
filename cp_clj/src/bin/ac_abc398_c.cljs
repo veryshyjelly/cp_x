@@ -8,11 +8,11 @@
 ;; @code begin
 
 (defn solve [_n arr]
-  (let [larget-key (apply max -1
+  (let [largest-key (apply max -1
                           (for [[k v] (frequencies arr)
                                 :when (= v 1)]
                             k))
-        res (.indexOf arr larget-key)]
+        res (.indexOf arr largest-key)]
     (if (= res -1) -1 (inc res))))
 
 (with-tokens '[n :int
