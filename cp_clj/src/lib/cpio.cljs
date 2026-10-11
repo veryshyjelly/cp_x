@@ -297,6 +297,7 @@
 (defn words [coll] (.join (to-array coll) " "))
 (defn lines [coll] (.join (to-array coll) "\n"))
 (defn- write! [s] (.write js/process.stdout s))
+(defn lines-of-words "print lines of words" [coll] (lines (map words coll)))
 (defn yes-no "Return \"Yes\" if truthy, \"No\" otherwise." [x] (if x "Yes" "No"))
 
 ;; ============================================================

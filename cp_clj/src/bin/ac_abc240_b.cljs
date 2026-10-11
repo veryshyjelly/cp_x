@@ -7,8 +7,7 @@
 
 ;; @code begin
 
-(defn solve [_ arr]
-  (count (set arr)))
+(def solve #(count (set %2)))
 
 (with-tokens '[n :int
               arr [:ints n]]

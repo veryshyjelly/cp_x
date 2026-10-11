@@ -3,7 +3,7 @@
 ;; C - Merge Sequences
 ;;
 (ns bin.ac-abc294-c
-  (:require [lib.cpio :refer [with-tokens lines words]]))
+  (:require [lib.cpio :refer [with-tokens lines-of-words]]))
 
 ;; @code begin
 
@@ -15,7 +15,7 @@
 (with-tokens '[n :int m :int
                a [:ints n]
                b [:ints m]]
-  (comp lines (partial map words) solve))
+  (comp lines-of-words solve))
 
 ;; @code end
 

@@ -8,10 +8,7 @@
 ;; @code begin
 (require '[clojure.string :as str])
 
-(defn solve [s]
-  (->> s
-       sort
-       str/join))
+(def solve (comp str/join sort))
 
 (with-tokens '[s :str] solve)
 

@@ -3,11 +3,11 @@
 
 ;; @code begin
 
-(defn solve [n m arr]
-  (+ n m (reduce + arr)))
+(defn solve [n xs]
+  (+ n (reduce + xs)))
 
-(with-tokens '[n :int m :int
-               arr [:ints n]]
+(with-tokens '[n :int
+               xs [:ints n]]
   solve)
 
 ;; @code end

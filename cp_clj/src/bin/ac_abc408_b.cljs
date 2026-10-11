@@ -3,18 +3,16 @@
 ;; C - Compression
 ;;
 (ns bin.ac-abc408-b
-  (:require [lib.cpio :refer [with-tokens lines words]]))
+  (:require [lib.cpio :refer [with-tokens lines-of-words]]))
 
 ;; @code begin
 
 (defn solve [_n arr]
   (let [res (apply sorted-set arr)]
-    (lines
-     [(count res)
-      (words res)])))
+    [[(count res)] res]))
 
 (with-tokens '[n :int
                arr [:ints n]]
-  solve)
+  (comp lines-of-words solve))
 
 ;; @code end

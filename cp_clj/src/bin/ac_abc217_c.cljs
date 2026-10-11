@@ -8,9 +8,14 @@
 ;; @code begin
 
 (defn solve [n arr]
-  (let [p (zipmap arr (iterate inc 1))]
-    (for [idx (range n)]
-      (p (inc idx)))))
+  (comment "one long solution can be this"
+           (let [p (zipmap arr (iterate inc 1))]
+             (for [idx (range n)]
+               (p (inc idx)))))
+   ; but this one is the best
+  (->> (range n)
+       (sort-by arr)
+       (map inc)))
 
 (with-tokens '[n :int
                arr [:ints n]]

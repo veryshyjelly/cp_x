@@ -1,4 +1,4 @@
-;; Created by Ayush Biswas at 2026/09/28 14:33
+;; Created by Ayush Biswas at 2026/10/06 21:38
 ;; https://atcoder.jp/contests/abc260/tasks/abc260_a
 ;; A - A Unique Letter
 ;;
@@ -8,14 +8,10 @@
 ;; @code begin
 
 (defn solve [s]
-  (some->> s 
-      frequencies
-      (filter #(= 1 (val %)))
-       first
-       key))
+  (some->> s  frequencies (some #(when (= 1 (val %)) %)) key))
 
 (with-tokens '[s :str]
-  (comp #(or % -1) solve))
+  (comp (fnil identity -1) solve))
 
 ;; @code end
 

@@ -1,4 +1,4 @@
-;; Created by Ayush Biswas at 2026/09/28 14:00
+;; Created by Ayush Biswas at 2026/10/06 18:33
 ;; https://atcoder.jp/contests/abc213/tasks/abc213_b
 ;; B - Booby Prize
 ;;
@@ -7,12 +7,13 @@
 
 ;; @code begin
 
-(defn solve [n arr]
+(defn solve [n as]
+  (comment  "one solution is this"
+            (->> (map vector as (range))
+                 sort reverse second second inc))
+       ; other (and better) one is this
   (->> (range n)
-       (sort-by arr)
-       reverse
-       second
-       inc))
+       (sort-by as) reverse second inc))
 
 (with-tokens '[n :int
                arr [:ints n]]

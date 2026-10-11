@@ -7,8 +7,7 @@
 
 ;; @code begin
 
-(defn solve [xs]
-  (= (second xs) (second (sort xs))))
+(defn solve [xs] (= (second xs) (second (sort xs))))
 
 (with-tokens '[xs [:ints 3]]
   (comp yes-no solve))

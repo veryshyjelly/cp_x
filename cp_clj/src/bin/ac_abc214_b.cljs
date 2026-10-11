@@ -9,8 +9,10 @@
 
 (defn solve [s t]
   (let [s' (inc s)]
-    (apply + (for [a (range s') b (range s') c (range s')]
-       (if (and (<= (+ a b c) s) (<= (* a b c) t)) 1 0)))))
+    (count (for [a (range s') b (range s') c (range s')
+                 :when (and
+                        (<= (+ a b c) s)
+                        (<= (* a b c) t))] 1))))
 
 (with-tokens '[s :int t :int]
   solve)
