@@ -7,15 +7,13 @@
 
 ;; @code begin
 
-(defn solve [_n arr]
-  (let [mi (apply min arr)
-        ma (apply max arr)
-        xo (apply bit-xor arr)
-        xa (apply bit-xor (range mi (inc ma)))]
-    (bit-xor xo xa)))
+(defn solve [_n xs]
+  (let [a0 (apply min xs) 
+        ys (map #(- % a0) (sort xs))]
+    (some #(apply not= %) (map vector (range) ys))))
 
 (with-tokens '[n :int
-               arr [:ints n]]
+               xs [:ints n]]
   solve)
 
 ;; @code end

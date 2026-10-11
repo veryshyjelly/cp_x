@@ -8,11 +8,7 @@
 ;; @code begin
 
 (defn solve [n]
-  (let [r (mod n 5)]
-    (->> [(- r) (- 5 r)]
-         (sort-by abs)
-         first
-         (+ n))))
+    (->> (mod n 5) ((juxt - (partial - 5))) (sort-by abs) first (+ n)))
 
 (with-tokens '[n :int]
   solve)
