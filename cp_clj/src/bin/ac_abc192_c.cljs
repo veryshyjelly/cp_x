@@ -7,7 +7,7 @@
             [clojure.string :as str]))
 
 ;; @code begin
-(defn g1 [x] (->> x str sort reverse str/join js/parseInt))
+(defn g1 [x] (->> x str (sort >) str/join js/parseInt))
 (defn g2 [x] (->> x str sort str/join js/parseInt))
 (defn f [x] (- (g1 x) (g2 x)))
 

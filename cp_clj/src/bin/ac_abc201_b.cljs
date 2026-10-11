@@ -8,7 +8,7 @@
 ;; @code begin
 
 (defn solve [_ mountains]
-  (->> mountains (sort-by second) reverse second first))
+  (->> mountains (sort-by second >) second first))
 
 (with-tokens '[n :int
                xs [:many n [:pair :str :int]]]

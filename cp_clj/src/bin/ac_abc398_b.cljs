@@ -8,11 +8,7 @@
 ;; @code begin
 
 (defn solve [cards]
-  (->> cards 
-       frequencies
-       vals
-       sort
-       reverse
+  (->> cards frequencies vals (sort >)
        ((juxt (comp (partial <= 3) first) 
               (comp (partial <= 2) second)))
        (every? identity)))

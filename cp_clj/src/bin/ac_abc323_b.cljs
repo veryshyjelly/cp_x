@@ -8,9 +8,9 @@
 ;; @code begin
 
 (defn solve [n results]
-  (let [wins  (comp count (partial filter #(= \x %)))]
-    (sort-by (juxt (comp wins results dec) identity)
-             (range 1 (inc n)))))
+  (let [wins #(->> % (filter (partial = \o)) count)
+        win-chart (mapv wins results)]
+    (->> (range n) (sort-by win-chart >) (map inc))))
 
 (with-tokens '[n :int
                arr [:strs n]]

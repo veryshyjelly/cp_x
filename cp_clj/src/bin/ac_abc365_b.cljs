@@ -8,11 +8,7 @@
 ;; @code begin
 
 (defn solve [n arr]
-  (->> (range n)
-       (sort-by arr)
-       reverse
-       second
-       inc))
+  (->> (range n) (sort-by arr >) second inc))
 
 (with-tokens '[n :int
                arr [:ints n]]

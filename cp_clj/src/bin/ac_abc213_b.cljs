@@ -10,10 +10,10 @@
 (defn solve [n as]
   (comment  "one solution is this"
             (->> (map vector as (range))
-                 sort reverse second second inc))
+                 (sort >) second second inc))
        ; other (and better) one is this
   (->> (range n)
-       (sort-by as) reverse second inc))
+       (sort-by as >) second inc))
 
 (with-tokens '[n :int
                arr [:ints n]]

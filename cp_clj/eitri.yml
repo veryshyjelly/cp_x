@@ -2,7 +2,7 @@ version: 1.0
 
 author: Ayush Biswas
 
-editor: "code {{ .Filename }}"
+editor: "nvim {{ .Filename }}"
 
 # How to generate the destination filename.
 filename:

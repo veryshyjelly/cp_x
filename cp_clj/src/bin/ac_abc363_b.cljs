@@ -8,12 +8,7 @@
 ;; @code begin
 
 (defn solve [_n t p hairs]
-  (->> hairs
-       sort
-       reverse
-       (take p)
-       last
-       (- t)
+  (->> hairs (sort >) (take p) last (- t)
        (#(if (> % 0) % 0))))
 
 (with-tokens '[n :int t :int p :int

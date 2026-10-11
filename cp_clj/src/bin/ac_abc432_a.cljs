@@ -9,10 +9,7 @@
 ;; @code begin
 
 (defn solve [digs]
-  (->> digs
-       sort
-       reverse
-       str/join))
+  (->> digs (sort >) str/join))
 
 (with-tokens '[digs [:ints 3]]
   solve)
