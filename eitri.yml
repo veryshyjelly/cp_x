@@ -1,0 +1,74 @@
+version: 1.0
+
+author: Ayush Biswas
+
+editor: "code {{ .Filename }}"
+
+# How to generate the destination filename.
+filename:
+  rules:
+    - site: codeforces.com
+      regex: "(?:problemset/problem|contest)/(\\d+)(?:/problem)?/([A-Za-z0-9]+)"
+      template: "./src/bin/cf_{{ index .Captures 1 }}_{{ index .Captures 2 }}.cljs"
+
+    - site: atcoder.jp
+      regex: "contests/([^/]+)/tasks/([^_]+)_([a-z]+)"
+      template: "./src/bin/ac_{{ index .Captures 2 }}_{{ index .Captures 3 | toLowerCase }}.cljs"
+
+    - site: cses.fi
+      regex: "problemset/task/(\\d+)/?$"
+      template: "./src/bin/cses_{{ index .Captures 1 }}_{{ .Title | toSnakeCase }}.cljs"
+
+    - site: judge.u-aizu.ac.jp
+      regex: "description\\.jsp\\?id=([A-Za-z0-9_]+)"
+      template: "./src/bin/aoj_{{ index .Captures 1 }}_{{ .Title | toSnakeCase }}.cljs"
+
+    - site: open.kattis.com
+      regex: "problems/([^/?]+)/?"
+      template: "./src/bin/{{ index .Captures 1 }}.cljs"
+
+# Base source template.
+template:
+  source: ./src/template.cljs
+  modifier: |
+    ;; Created by {{ .Author }} at {{ .Time }}
+    ;; {{ .Url }}
+    ;; {{ .Title }}
+    ;;
+    (ns bin.{{ .Filename | toKebabCase }}
+    {{ .Code | removeLines 1 }}
+
+# Optional code post-processing.
+code:
+  modifier: |
+    (ns main.core 
+        (:require 
+            ["fs" :as fs]
+            ["ac-library-js" :as ac]
+            ["data-structure-typed" :as ds]
+            [clojure.string :as str]
+            [clojure.set :as set]
+    ))
+    {{.Header}}
+    {{ range .LibFiles }}
+    ;; lib {{ .Name }}
+    {{ .Content }}
+    ;; end {{ .Name }}
+    {{end}}
+    {{ .Code }}
+
+# Library injection.
+lib:
+  regex: "(:require.*{{.Name}}.*)"
+  include:
+    _: "./src/lib/"
+
+# Compilation.
+compiler:
+  name: Clojurescript
+  source: main.cljs
+  run: bunx --bun nbb ./main.cljs
+
+# Behaviour
+create_file: true
+run_on_save: true

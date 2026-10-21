@@ -1,0 +1,17 @@
+;; Created by Ayush Biswas at 2026/09/23 22:00
+;; https://atcoder.jp/contests/adt_all_20260624_1/tasks/abc240_b
+;; D - Count Distinct Integers
+;;
+(ns bin.ac-abc240-b
+  (:require [lib.cpio :refer [with-tokens]]))
+
+;; @code begin
+
+(def solve #(count (set %2)))
+
+(with-tokens '[n :int
+              arr [:ints n]]
+  solve)
+
+;; @code end
+
