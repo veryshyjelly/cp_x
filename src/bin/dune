@@ -1,0 +1,3 @@
+(executables
+ (names abc126_a_changing_a_character)
+ (libraries core zarith str lib batteries containers))
